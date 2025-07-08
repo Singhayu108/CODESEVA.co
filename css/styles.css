@@ -136,14 +136,13 @@ p {
 }
 
 .nav-links a:hover {
-    color: #fff; /* White text on hover */
-    transform: translateY(-2px);
+    background: #111;
+    color: #fff !important;
 }
 
 .nav-links a.active {
-    background: #111; /* Active link background */
-    color: #fff; /* Explicitly set to white for active link */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for active state */
+    background: #111;
+    color: #fff !important;
 }
 
 /* Hero Section */
@@ -2999,4 +2998,279 @@ body {
     z-index: 10000;
     transform: translate(-50%, -50%);
     transition: background 0.2s;
+}
+
+/* Home About Section Styles */
+.about-section {
+    padding: 6rem 0 4rem 0;
+    background: linear-gradient(180deg, #f8f9fa 0%, #fff 100%);
+    position: relative;
+    overflow: hidden;
+}
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.about-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+.about-header h2 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 0.7rem;
+}
+.about-header p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+}
+.image-cards-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    padding: 1.5rem 0 0 0;
+}
+.image-cards-track {
+    display: flex;
+    gap: 2.5rem;
+    animation: scrollCards 30s linear infinite;
+    will-change: transform;
+}
+@keyframes scrollCards {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+}
+.image-cards-container:hover .image-cards-track {
+    animation-play-state: paused;
+}
+.image-card {
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+.image-card img {
+    transition: transform 0.5s cubic-bezier(.22,1,.36,1);
+}
+.image-card-overlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(.22,1,.36,1);
+}
+.image-card:hover img {
+    transform: scale(1.12);
+}
+.image-card:hover .image-card-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+.image-card {
+    position: relative;
+    width: 320px;
+    min-width: 320px;
+    max-width: 320px;
+    height: 380px;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.image-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    display: block;
+}
+.image-card-overlay {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    background: linear-gradient(0deg, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.18) 100%);
+    color: #fff;
+    padding: 1.2rem 1.2rem 1.5rem 1.2rem;
+    width: 100%;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    z-index: 2;
+}
+.image-card-content h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+.image-card-content p {
+    font-size: 1rem;
+    color: #e0e0e0;
+    margin-bottom: 0.7rem;
+}
+.read-more {
+    color: #b2cbea;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: color 0.2s;
+}
+.read-more:hover {
+    color: #fff;
+}
+@media (max-width: 1200px) {
+    .image-card, .image-cards-track {
+        width: 260px;
+        min-width: 260px;
+        max-width: 260px;
+    }
+    .image-card img {
+        height: 160px;
+    }
+}
+@media (max-width: 900px) {
+    .about-section {
+        padding: 4rem 0 2rem 0;
+    }
+    .image-cards-track {
+        gap: 1.2rem;
+    }
+    .image-card, .image-cards-track {
+        width: 200px;
+        min-width: 200px;
+        max-width: 200px;
+        height: 260px;
+    }
+    .image-card img {
+        height: 100px;
+    }
+    .image-card-overlay {
+        min-height: 100px;
+        padding: 0.7rem 0.7rem 1rem 0.7rem;
+    }
+    .about-header h2 {
+        font-size: 2rem;
+    }
+}
+@media (max-width: 600px) {
+    .about-section {
+        padding: 2rem 0 1rem 0;
+    }
+    .about-header h2 {
+        font-size: 1.3rem;
+    }
+    .about-header p {
+        font-size: 1rem;
+    }
+    .image-card, .image-cards-track {
+        width: 140px;
+        min-width: 140px;
+        max-width: 140px;
+        height: 180px;
+    }
+    .image-card img {
+        height: 60px;
+    }
+    .image-card-overlay {
+        min-height: 60px;
+        padding: 0.4rem 0.4rem 0.7rem 0.4rem;
+    }
+    .image-card-content h3 {
+        font-size: 0.9rem;
+    }
+    .image-card-content p {
+        font-size: 0.7rem;
+    }
+    .read-more {
+        font-size: 0.8rem;
+    }
+}
+
+/* Horizontal Scrolling Text Effect */
+.scrolling-text-container {
+    width: 100vw;
+    overflow: hidden;
+    background: #f8f9fa;
+    position: relative;
+    padding: 0.7rem 0;
+    margin: 0 auto 0 auto;
+    z-index: 2;
+}
+.scrolling-text-track {
+    display: flex;
+    width: max-content;
+    animation: scrollingText 28s linear infinite;
+    align-items: center;
+    gap: 3rem;
+    white-space: nowrap;
+}
+.scrolling-text-container:hover .scrolling-text-track {
+    animation-play-state: paused;
+}
+.scrolling-text {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #222;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    opacity: 0.92;
+    white-space: nowrap;
+    padding: 0 1.5rem;
+    font-family: 'Montserrat', Arial, sans-serif;
+}
+@keyframes scrollingText {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+@media (max-width: 768px) {
+    .scrolling-text {
+        font-size: 1rem;
+        padding: 0 0.7rem;
+    }
+    .scrolling-text-container {
+        padding: 0.5rem 0;
+    }
+}
+
+/* Enhanced Horizontal Scrolling Text Effect */
+.scrolling-text {
+    font-size: 1.55rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 1;
+    color: #111;
+    background: none;
+    transition: none;
+    filter: none;
+    padding: 0 2.2rem;
+}
+
+.scrolling-text:hover {
+    background: none;
+    color: inherit;
+    text-shadow: none;
+    filter: none;
+}
+
+@media (max-width: 768px) {
+    .scrolling-text {
+        font-size: 1.1rem;
+        padding: 0 1rem;
+    }
 }
