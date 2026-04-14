@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - CODESEVA</title>
+    <title>Contact Us - DEVORA</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         body { background: #fff; color: #111; font-family: 'Montserrat', Arial, sans-serif; margin: 0; }
-        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem 1.5rem 2rem; background: #fff; border-bottom: 1px solid #eee; }
-        .navbar .logo img { 
-            height: 80px;
-            width: auto;
-            transition: transform 0.2s ease;
-        }
-        .navbar .logo img:hover {
-            transform: translateY(-2px);
-        }
-        .nav-links { display: flex; gap: 2.2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem 1.2rem 2rem; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .navbar .logo img { height: 48px; width: auto; transition: transform 0.2s ease; }
+        .navbar .logo img:hover { transform: translateY(-2px); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
         .nav-links a:hover { color: #3a3a3a; }
-        .cta-btn { background: #443f43; color: #fff; border: none; border-radius: 1.2rem; padding: 0.7rem 1.7rem; font-weight: 700; font-size: 1.05rem; margin-left: 2rem; cursor: pointer; transition: background 0.2s; }
-        .cta-btn:hover { background: #222; }
+        .cta-btn { background: #111; color: #fff; border: none; border-radius: 1.2rem; padding: 0.65rem 1.5rem; font-weight: 700; font-size: 1rem; margin-left: 1.5rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background: #333; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 300; }
+        .hamburger span { display: block; width: 26px; height: 2px; background: #111; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 1.5rem; }
+            .nav-links { display: none; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; width: 280px; background: #fff; padding: 5rem 2rem 2rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 200; transition: transform 0.3s; transform: translateX(100%); }
+            .nav-links.open { display: flex; transform: translateX(0); }
+            .hamburger { display: flex; }
+        }
 
         /* Contact Page Specific Styles */
         .contact-hero {
@@ -236,27 +241,14 @@
         }
 
         @media (max-width: 992px) {
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-hero h1 {
-                font-size: 3.5rem;
-            }
+            .contact-grid { grid-template-columns: 1fr; }
+            .contact-hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
         }
-
         @media (max-width: 768px) {
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-hero h1 {
-                font-size: 2.8rem;
-            }
-
-            .map-container {
-                height: 300px;
-            }
+            .form-grid { grid-template-columns: 1fr; }
+            .contact-hero h1 { font-size: clamp(1.8rem, 6vw, 2.8rem); }
+            .map-container { height: 300px; }
+            .contact-hero { padding: 5rem 5vw; min-height: auto; }
         }
 
         @media (max-width: 900px) {
@@ -267,22 +259,24 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="index.html" class="logo"><img src="images/logo.png" alt="CODESEVA Logo"></a>
-        <div class="nav-links">
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="DEVORA Logo"></a>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="services.html">Services</a>
             <a href="work.html">Works</a>
             <a href="contact.html" class="active">Contact</a>
-            <a href="contact.html" class="cta-btn">Get Started</a>
+            <a href="contact.html" class="cta-btn">Initiate Project</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
-    <!-- Hero Section -->
     <section class="contact-hero">
         <div class="contact-hero-content">
-            <h1>Let's Connect and Build Something Great</h1>
-            <p>We're eager to hear about your project and explore how we can help you achieve your digital goals.</p>
+            <h1>Initialize Project</h1>
+            <p>Ready to deploy your vision? We are the rapid execution partner you need to turn ambiguity into a market-ready product.</p>
         </div>
     </section>
 
@@ -309,7 +303,7 @@
                     <i class="fas fa-envelope"></i>
                     <div class="info-content">
                         <h3>Email</h3>
-                        <p>info@codeseven.in</p>
+                        <p>info@devora.in</p>
                     </div>
                 </div>
                 <div class="social-links">
@@ -367,7 +361,7 @@
             </div>
             <div style="font-size:4.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1.2rem;line-height:1.05;">ASK TO GET!</div>
             <div style="font-size:2.1rem;font-weight:500;margin-bottom:2.5rem;">
-                <a href="mailto:info@codeseven.in" style="color:#fff;text-decoration:underline;">info@codeseven.in</a>
+                <a href="mailto:info@devora.in" style="color:#fff;text-decoration:underline;">info@devora.in</a>
             </div>
             <div style="display:flex;justify-content:center;gap:2.5rem;font-size:1.1rem;font-weight:700;margin-bottom:0;">
                 <a href="index.html" style="color:#fff;text-decoration:none;">ABOUT</a>
@@ -377,10 +371,11 @@
             </div>
         </div>
         <div class="footer-bottom" style="width:100vw;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3vw 1.2rem 3vw;position:relative;">
-            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 CODE SEVA</div>
+            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 DEVORA</div>
             <div style="display:flex;align-items:center;gap:1.5rem;">
-                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-twitter"></i></a>
                 <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:info@devora.in" style="color:#fff;font-size:1.5rem;"><i class="fas fa-envelope"></i></a>
+                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-github"></i></a>
                 <a href="#top" style="color:#111;background:#fff;border-radius:50%;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-arrow-up"></i></a>
             </div>
         </div>
@@ -389,17 +384,27 @@
     <script src="js/main.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: false
-        });
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: false });
+
+        // Mobile nav
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                }
+            });
+        }
 
         // Form submission handler
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            // Add your form submission logic here
             alert('Thank you for your message! We will get back to you soon.');
             this.reset();
         });
@@ -414,6 +419,15 @@
                 }
             });
         });
+        });
     </script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/interactions.js"></script>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
 </body>
 </html> 

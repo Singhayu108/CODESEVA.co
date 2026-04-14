@@ -7,7 +7,7 @@
 const CONFIG = {
     // Site Information
     site: {
-        name: "CODESEVA",
+        name: "DEVORA",
         domain: "itrammanagement.com",
         version: "1.0.0"
     },

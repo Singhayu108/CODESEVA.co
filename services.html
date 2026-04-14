@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services - CODESEVA</title>
+    <title>Services - DEVORA</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #fff; color: #111; font-family: 'Montserrat', Arial, sans-serif; margin: 0; }
-        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem 1.5rem 2rem; background: #fff; border-bottom: 1px solid #eee; }
-        .navbar .logo img { 
-            height: 80px;
-            width: auto;
-            transition: transform 0.2s ease;
-        }
-        .navbar .logo img:hover {
-            transform: translateY(-2px);
-        }
-        .nav-links { display: flex; gap: 2.2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem 1.2rem 2rem; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .navbar .logo img { height: 48px; width: auto; transition: transform 0.2s ease; }
+        .navbar .logo img:hover { transform: translateY(-2px); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
         .nav-links a:hover { color: #3a3a3a; }
-        .cta-btn { background: #443f43; color: #fff; border: none; border-radius: 1.2rem; padding: 0.7rem 1.7rem; font-weight: 700; font-size: 1.05rem; margin-left: 2rem; cursor: pointer; transition: background 0.2s; }
-        .cta-btn:hover { background: #222; }
+        .cta-btn { background: #111; color: #fff; border: none; border-radius: 1.2rem; padding: 0.65rem 1.5rem; font-weight: 700; font-size: 1rem; margin-left: 1.5rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background: #333; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 300; }
+        .hamburger span { display: block; width: 26px; height: 2px; background: #111; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 1.5rem; }
+            .nav-links { display: none; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; width: 280px; background: #fff; padding: 5rem 2rem 2rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 200; transition: transform 0.3s; transform: translateX(100%); }
+            .nav-links.open { display: flex; transform: translateX(0); }
+            .hamburger { display: flex; }
+        }
 
         /* Services Page Specific Styles */
         .services-hero {
@@ -194,7 +198,7 @@
 
         .process-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(5, 1fr);
             gap: 2rem;
             margin-top: 4rem;
         }
@@ -259,26 +263,12 @@
         }
 
         @media (max-width: 768px) {
-            .services-hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .process-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .category-header h2 {
-                font-size: 2.5rem;
-            }
-
-            .service-card {
-                min-width: 280px;
-            }
+            .services-hero h1 { font-size: clamp(2rem, 7vw, 3.5rem); }
+            .services-grid { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .category-header h2 { font-size: 2rem; }
+            .service-card { min-width: unset; }
+            .services-hero { padding: 5rem 5vw; min-height: auto; }
         }
 
         @media (max-width: 992px) {
@@ -363,171 +353,74 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="index.html" class="logo"><img src="images/logo.png" alt="CODESEVA Logo"></a>
-        <div class="nav-links">
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="DEVORA Logo"></a>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="services.html" class="active">Services</a>
             <a href="work.html">Works</a>
             <a href="contact.html">Contact</a>
-            <a href="contact.html" class="cta-btn">Get Started</a>
+            <a href="contact.html" class="cta-btn">Initiate Project</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
     <!-- Hero Section -->
     <section class="services-hero">
         <div class="services-hero-content">
-            <h1>Elevating Your Digital Presence</h1>
-            <p>Our comprehensive suite of services is designed to propel your business forward in the digital landscape.</p>
+            <h1>The DEVORA Standard</h1>
+            <p>End-to-end capabilities designed to synthesize vague ambition into sharp, actionable, and innovative product visions.</p>
         </div>
     </section>
 
-    <!-- Web Development Services -->
+    <!-- Strategy & Design -->
     <section class="service-category">
         <div class="category-header">
-            <h2>Web Development</h2>
-            <p>Custom web solutions built with cutting-edge technologies</p>
+            <h2>Strategy & Design</h2>
+            <p>Transforming ambition into validated product architecture</p>
         </div>
         <div class="services-grid">
             <div class="service-card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>Custom Websites</h3>
-                <p>Tailored websites that perfectly match your brand and business needs, built with modern frameworks and best practices.</p>
+                <i class="fas fa-lightbulb"></i>
+                <h3>Concept Synthesis</h3>
+                <p>Distilling vague ambition into a sharp, actionable, and innovative product vision.</p>
             </div>
             <div class="service-card">
-                <i class="fas fa-shopping-cart"></i>
-                <h3>E-Commerce</h3>
-                <p>Powerful online stores with secure payment gateways, inventory management, and seamless shopping experiences.</p>
+                <i class="fas fa-project-diagram"></i>
+                <h3>Strategic Validation</h3>
+                <p>Data-backed roadmaps designed to stress-test viability and mitigate risk before scaling.</p>
             </div>
             <div class="service-card">
-                <i class="fas fa-mobile-alt"></i>
-                <h3>Responsive Design</h3>
-                <p>Mobile-first websites that look and function perfectly across all devices and screen sizes.</p>
+                <i class="fas fa-layer-group"></i>
+                <h3>UI/UX Architecture</h3>
+                <p>Futuristic, pixel-perfect interfaces engineered for seamless and premium user experiences.</p>
             </div>
         </div>
     </section>
 
-    <!-- Software Development -->
+    <!-- Engineering & Scaling -->
     <section class="service-category">
         <div class="category-header">
-            <h2>Software Development</h2>
-            <p>Custom software solutions for modern business needs</p>
+            <h2>Engineering & Scaling</h2>
+            <p>Robust development and strategic market deployment</p>
         </div>
         <div class="services-grid">
             <div class="service-card">
                 <i class="fas fa-code"></i>
-                <h3>Custom Software</h3>
-                <p>Bespoke software solutions tailored to your specific business requirements and workflows.</p>
+                <h3>Full-Stack Engineering</h3>
+                <p>Robust, high-performance development utilizing modern and scalable tech stacks.</p>
             </div>
             <div class="service-card">
-                <i class="fas fa-mobile"></i>
-                <h3>Mobile Apps</h3>
-                <p>Native and cross-platform mobile applications for iOS and Android with seamless user experience.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-cogs"></i>
-                <h3>API Development</h3>
-                <p>Robust and scalable API solutions for system integration and data exchange.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- IT Infrastructure -->
-    <section class="service-category">
-        <div class="category-header">
-            <h2>IT Infrastructure</h2>
-            <p>Enterprise-grade IT solutions and support</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-server"></i>
-                <h3>Server Management</h3>
-                <p>24/7 server monitoring, maintenance, and optimization for maximum uptime and performance.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-network-wired"></i>
-                <h3>Network Solutions</h3>
-                <p>Design and implementation of secure and scalable network infrastructure.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-cloud"></i>
-                <h3>Cloud Services</h3>
-                <p>Cloud migration, optimization, and management across major platforms (AWS, Azure, GCP).</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Cybersecurity -->
-    <section class="service-category">
-        <div class="category-header">
-            <h2>Cybersecurity</h2>
-            <p>Comprehensive security solutions for your digital assets</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-shield-alt"></i>
-                <h3>Security Audit</h3>
-                <p>Thorough assessment of your systems and infrastructure to identify vulnerabilities and risks.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-lock"></i>
-                <h3>Data Protection</h3>
-                <p>Implementation of robust data protection measures and compliance with privacy regulations.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-user-shield"></i>
-                <h3>Access Control</h3>
-                <p>Advanced access management systems and authentication solutions for enhanced security.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Enterprise Solutions -->
-    <section class="service-category">
-        <div class="category-header">
-            <h2>Enterprise Solutions</h2>
-            <p>Digital transformation for large-scale operations</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-database"></i>
-                <h3>Data Analytics</h3>
-                <p>Advanced analytics solutions to transform raw data into actionable business insights.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-robot"></i>
-                <h3>AI & Machine Learning</h3>
-                <p>Implementation of AI solutions for process automation and intelligent decision-making.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-project-diagram"></i>
-                <h3>System Integration</h3>
-                <p>Seamless integration of various business systems and applications for improved efficiency.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- DevOps Services -->
-    <section class="service-category">
-        <div class="category-header">
-            <h2>DevOps Services</h2>
-            <p>Streamline development and operations</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-sync-alt"></i>
-                <h3>CI/CD Pipeline</h3>
-                <p>Setup and optimization of continuous integration and deployment pipelines for faster delivery.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-tools"></i>
-                <h3>Infrastructure as Code</h3>
-                <p>Automated infrastructure provisioning and management using modern IaC tools.</p>
+                <i class="fas fa-rocket"></i>
+                <h3>Velocity Launch</h3>
+                <p>Strategic go-to-market deployment designed to capture immediate user traction.</p>
             </div>
             <div class="service-card">
                 <i class="fas fa-chart-line"></i>
-                <h3>Performance Monitoring</h3>
-                <p>Comprehensive monitoring and optimization of application performance and resources.</p>
+                <h3>Innovation Operations</h3>
+                <p>Ongoing technological consultation to keep your product outpacing the competition.</p>
             </div>
         </div>
     </section>
@@ -535,29 +428,34 @@
     <!-- Our Process -->
     <section class="process-section">
         <div class="category-header">
-            <h2 style="color: #fff;">Our Process</h2>
-            <p style="color: rgba(255,255,255,0.8);">How we bring your vision to life</p>
+            <h2 style="color: #fff;">The Framework</h2>
+            <p style="color: rgba(255,255,255,0.8);">How we execute end-to-end</p>
         </div>
         <div class="process-grid">
             <div class="process-step">
                 <div class="step-number">1</div>
-                <h3>Discovery</h3>
-                <p>We learn about your business, goals, and requirements</p>
+                <h3>Ideate</h3>
+                <p>Define whitespace & architect solutions</p>
             </div>
             <div class="process-step">
                 <div class="step-number">2</div>
-                <h3>Planning</h3>
-                <p>Creating detailed roadmap and strategy</p>
+                <h3>Validate</h3>
+                <p>Stress-test core assumptions</p>
             </div>
             <div class="process-step">
                 <div class="step-number">3</div>
-                <h3>Development</h3>
-                <p>Building your solution with precision</p>
+                <h3>Design</h3>
+                <p>Craft intuitive layouts</p>
             </div>
             <div class="process-step">
                 <div class="step-number">4</div>
+                <h3>Build</h3>
+                <p>Engineer scalable architecture</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">5</div>
                 <h3>Launch</h3>
-                <p>Deploying and ensuring everything works perfectly</p>
+                <p>Execute market introduction</p>
             </div>
         </div>
     </section>
@@ -570,7 +468,7 @@
             </div>
             <div style="font-size:4.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1.2rem;line-height:1.05;">ASK TO GET!</div>
             <div style="font-size:2.1rem;font-weight:500;margin-bottom:2.5rem;">
-                <a href="mailto:info@codeseva.com" style="color:#fff;text-decoration:underline;">info@codeseva.com</a>
+                <a href="mailto:info@devora.in" style="color:#fff;text-decoration:underline;">info@devora.in</a>
             </div>
             <div style="display:flex;justify-content:center;gap:2.5rem;font-size:1.1rem;font-weight:700;margin-bottom:0;">
                 <a href="index.html" style="color:#fff;text-decoration:none;">ABOUT</a>
@@ -580,10 +478,11 @@
             </div>
         </div>
         <div class="footer-bottom" style="width:100vw;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3vw 1.2rem 3vw;position:relative;">
-            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 CODESEVA</div>
+            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 DEVORA</div>
             <div style="display:flex;align-items:center;gap:1.5rem;">
-                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-twitter"></i></a>
                 <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:info@devora.in" style="color:#fff;font-size:1.5rem;"><i class="fas fa-envelope"></i></a>
+                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-github"></i></a>
                 <a href="#top" style="color:#111;background:#fff;border-radius:50%;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-arrow-up"></i></a>
             </div>
         </div>
@@ -602,11 +501,23 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: false
-        });
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: false });
+
+        // Mobile nav
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                }
+            });
+        }
 
         // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -643,5 +554,13 @@
             if (e.target === serviceModal) closeServiceModal();
         });
     </script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/interactions.js"></script>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
 </body>
 </html> 

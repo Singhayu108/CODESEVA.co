@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODESEVA - Your Partner in Web Design & Development</title>
+    <title>DEVORA - Your Partner in Web Design & Development</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { background: #fff; color: #111; font-family: 'Montserrat', Arial, sans-serif; margin: 0; }
-        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem 1.5rem 2rem; background: #fff; border-bottom: 1px solid #eee; }
-        .navbar .logo img { 
-            height: 80px;
-            width: auto;
-            transition: transform 0.2s ease;
-        }
-        .navbar .logo img:hover {
-            transform: translateY(-2px);
-        }
-        .nav-links { display: flex; gap: 2.2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem 1.2rem 2rem; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .navbar .logo img { height: 48px; width: auto; transition: transform 0.2s ease; }
+        .navbar .logo img:hover { transform: translateY(-2px); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
         .nav-links a:hover { color: #3a3a3a; }
-        .cta-btn { background: #443f43; color: #fff; border: none; border-radius: 1.2rem; padding: 0.7rem 1.7rem; font-weight: 700; font-size: 1.05rem; margin-left: 2rem; cursor: pointer; transition: background 0.2s; }
-        .cta-btn:hover { background: #222; }
+        .cta-btn { background: #111; color: #fff; border: none; border-radius: 1.2rem; padding: 0.65rem 1.5rem; font-weight: 700; font-size: 1rem; margin-left: 1.5rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background: #333; }
+        /* Mobile hamburger */
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 300; }
+        .hamburger span { display: block; width: 26px; height: 2px; background: #111; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
         .hero-section { display: flex; min-height: 90vh; align-items: flex-start; justify-content: space-between; padding: 0 0 0 6vw; position: relative; }
         .hero-left { flex: 1.2; padding-top: 5vw; z-index: 2; }
         .hero-title { font-size: 4.2rem; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 1.2rem 0; text-transform: uppercase; }
@@ -73,7 +73,432 @@
             background: #b2cbea;
             color: #111;
         }
-        /* Services Scroll Section Styles */
+        /* About focus and service preview styles */
+        .about-focus-section {
+            background: #fff;
+            color: #111;
+            padding: 6rem 6vw;
+            overflow: hidden;
+        }
+        .about-focus-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.85fr);
+            gap: 3rem;
+            align-items: center;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+        .about-focus-copy .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            color: #5a8ab0;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .about-focus-copy h2 {
+            font-size: clamp(2.7rem, 4vw, 4.5rem);
+            line-height: 1.03;
+            color: #111;
+            margin-bottom: 1.5rem;
+            max-width: 680px;
+        }
+        .about-focus-copy p {
+            color: #444;
+            font-size: 1.1rem;
+            max-width: 620px;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .about-focus-features {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .feature-pill {
+            background: #f4f7fb;
+            border: 1px solid #e4eaf2;
+            padding: 1.3rem 1.4rem;
+            border-radius: 1.6rem;
+        }
+        .feature-pill strong {
+            display: block;
+            color: #111;
+            font-size: 1rem;
+            margin-bottom: 0.65rem;
+        }
+        .feature-pill span {
+            display: block;
+            color: #555;
+            line-height: 1.7;
+            font-size: 0.98rem;
+        }
+        .about-focus-panel {
+            display: grid;
+            gap: 1rem;
+        }
+        .about-metrics-card {
+            position: relative;
+            background: #111;
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 2rem;
+            padding: 2rem;
+            min-height: 210px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: 0 24px 60px rgba(0,0,0,0.12);
+        }
+        .about-metrics-card::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 260px;
+            height: 260px;
+            background: radial-gradient(circle, rgba(178,203,234,0.18) 0%, transparent 65%);
+            filter: blur(18px);
+        }
+        .about-metrics-card span {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #fff;
+            display: block;
+            margin-bottom: 1rem;
+            z-index: 1;
+            position: relative;
+        }
+        .about-metrics-card p {
+            color: rgba(244,247,251,0.8);
+            line-height: 1.8;
+            font-size: 1rem;
+            z-index: 1;
+            position: relative;
+        }
+        .services-preview-section {
+            padding: 6rem 6vw;
+            background: #f4f7fb;
+            color: #111;
+        }
+        .services-preview-section .section-heading {
+            max-width: 880px;
+            margin: 0 auto 3rem auto;
+            text-align: center;
+        }
+        .services-preview-section .section-heading h2 {
+            font-size: clamp(2.8rem, 4vw, 4rem);
+            color: #111;
+            margin-bottom: 1rem;
+        }
+        .services-preview-section .section-heading p {
+            color: #555;
+            font-size: 1.08rem;
+            line-height: 1.8;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .services-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 1.4rem;
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+        .service-preview-card {
+            background: #fff;
+            border: 1px solid #e4eaf2;
+            border-radius: 2rem;
+            padding: 2rem;
+            min-height: 260px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1), box-shadow 0.6s ease;
+        }
+        .service-preview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 24px 70px rgba(0,0,0,0.10);
+        }
+        .service-preview-card h3 {
+            color: #111;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .service-preview-card p {
+            color: #555;
+            line-height: 1.75;
+            flex: 1;
+            margin-bottom: 1.5rem;
+        }
+        .service-preview-card .service-link {
+            color: #5a8ab0;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 0.02em;
+        }
+        .services-preview-cta {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .movie-schedule-section {
+            padding: 6rem 6vw 8rem 6vw;
+            background: #fff;
+            color: #111;
+        }
+        .movie-schedule-section .section-heading {
+            max-width: 860px;
+            margin: 0 auto 3.5rem auto;
+            text-align: center;
+        }
+        .movie-schedule-section .section-heading h2 {
+            font-size: clamp(2.4rem, 4vw, 4rem);
+            color: #111;
+            margin-bottom: 1rem;
+        }
+        .movie-schedule-section .section-heading p {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .movie-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+        /* ── MOVIE CARD: full cinematic poster layout ── */
+        .movie-card {
+            position: relative;
+            border-radius: 1.6rem;
+            overflow: hidden;
+            background: #0a0c10;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+        /* poster wrapper — fixed tall height */
+        .movie-poster {
+            position: relative;
+            width: 100%;
+            height: 420px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        /* subtle parallax on hover */
+        .movie-poster-img {
+            position: absolute;
+            inset: -6% 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.9s cubic-bezier(0.22,1,0.36,1);
+            will-change: transform;
+        }
+        .movie-card:hover .movie-poster-img {
+            transform: translateY(-6px) scale(1.04);
+        }
+        /* dark gradient overlay */
+        .movie-poster::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(4,5,8,0.08) 0%,
+                transparent 30%,
+                transparent 45%,
+                rgba(4,5,8,0.55) 70%,
+                rgba(4,5,8,0.95) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* ── GENRE PILL — starts hidden above, slides down on hover ── */
+        .genre-pill {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+            z-index: 3;
+            background: rgba(178,203,234,0.92);
+            color: #0a0c10;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transform: translateY(-36px);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1),
+                        opacity 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .movie-card:hover .genre-pill {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        /* ── META BADGE — timing info, slides up on hover ── */
+        .movie-meta {
+            position: absolute;
+            left: 1.2rem;
+            bottom: 7.2rem;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.6rem 1rem;
+            background: rgba(10,12,16,0.72);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.2rem;
+            backdrop-filter: blur(8px);
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1),
+                        opacity 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .movie-card:hover .movie-meta {
+            transform: translateY(-14px);
+            opacity: 0.85;
+        }
+        .movie-time,
+        .movie-duration {
+            color: #f4f7fb;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+        .movie-divider {
+            width: 1px;
+            height: 1rem;
+            background: rgba(255,255,255,0.2);
+        }
+        /* ── BIG NUMBER — decorative, shifts up on hover ── */
+        .movie-big-time {
+            position: absolute;
+            bottom: 5.8rem;
+            right: 1rem;
+            z-index: 2;
+            color: rgba(255,255,255,0.08);
+            font-size: clamp(4.5rem, 6vw, 6.5rem);
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            line-height: 1;
+            pointer-events: none;
+            transition: transform 0.9s cubic-bezier(0.22,1,0.36,1),
+                        color 0.6s ease;
+        }
+        .movie-card:hover .movie-big-time {
+            transform: translateY(-16px);
+            color: rgba(255,255,255,0.13);
+        }
+        /* ── BOTTOM PANEL — always visible, lifts on hover ── */
+        .movie-bottom {
+            position: relative;
+            z-index: 3;
+            padding: 1.6rem 1.4rem 1.8rem;
+            background: #0a0c10;
+            transform: translateY(0);
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .movie-card:hover .movie-bottom {
+            transform: translateY(-6px);
+        }
+        .movie-bottom h3 {
+            color: #fff;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.01em;
+        }
+        .movie-bottom p {
+            color: rgba(238,242,247,0.65);
+            line-height: 1.75;
+            font-size: 0.92rem;
+        }
+        @media (max-width: 1024px) {
+            .about-focus-grid {
+                grid-template-columns: 1fr;
+            }
+            .about-focus-panel {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+            .about-focus-panel .about-metrics-card {
+                min-height: 180px;
+            }
+            .movie-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .about-focus-section,
+            .services-preview-section,
+            .movie-schedule-section {
+                padding: 4.5rem 4vw;
+            }
+            .about-focus-grid {
+                gap: 2rem;
+            }
+            .about-focus-features {
+                grid-template-columns: 1fr;
+            }
+            .about-focus-panel {
+                grid-template-columns: 1fr;
+            }
+            .movie-poster { height: 360px; }
+            .movie-big-time { font-size: 3.5rem; bottom: 5rem; }
+            .movie-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+        }
+        @media (max-width: 540px) {
+            .movie-poster { height: 300px; }
+            .movie-big-time { font-size: 3rem; bottom: 4.5rem; }
+            .movie-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── SCROLLING TEXT ── */
+        .scrolling-text-container { overflow: hidden; background: #f4f7fb; padding: 1rem 0; border-top: 1px solid #e4eaf2; border-bottom: 1px solid #e4eaf2; }
+        .scrolling-text-track { display: flex; white-space: nowrap; animation: scrollText 22s linear infinite; }
+        .scrolling-text { font-size: 1rem; font-weight: 700; color: #111; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 2rem; opacity: 0.55; }
+        @keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+        /* ── HERO RESPONSIVE ── */
+        .hero-vertical { position: absolute; right: 2vw; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 0.5rem; z-index: 3; }
+        .hero-vertical span { font-size: 0.75rem; font-weight: 900; letter-spacing: 0.22em; color: #111; text-transform: uppercase; writing-mode: vertical-rl; }
+
+        @media (max-width: 1100px) {
+            .hero-section { flex-direction: column; min-height: auto; padding: 4rem 6vw 3rem; align-items: flex-start; }
+            .hero-right { display: none; }
+            .hero-vertical { display: none; }
+            .hero-dot, .hero-line { display: none; }
+            .hero-left { padding-top: 0; }
+            .hero-title { font-size: clamp(2.4rem, 7vw, 4.2rem); }
+        }
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 1.5rem; }
+            .nav-links { display: none; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; width: 280px; background: #fff; padding: 5rem 2rem 2rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 200; transition: transform 0.3s; transform: translateX(100%); }
+            .nav-links.open { display: flex; transform: translateX(0); }
+            .hamburger { display: flex; }
+            .about-focus-section, .services-preview-section, .movie-schedule-section { padding: 4rem 5vw; }
+            .about-focus-grid { grid-template-columns: 1fr; }
+            .about-focus-features { grid-template-columns: 1fr; }
+            .about-focus-panel { grid-template-columns: 1fr; }
+            .services-preview-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 540px) {
+            .services-preview-grid { grid-template-columns: 1fr; }
+            .hero-title { font-size: 2.2rem; }
+        }
+
+        /* ── REMOVE OLD SCROLL SECTIONS ── */
+        .services-scroll-section, .projects-scroll-section { display: none !important; }
+
+        /* Services Scroll Section Styles - HIDDEN */
         .services-scroll-section {
             padding: 6rem 0;
             background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
@@ -456,28 +881,31 @@
 </head>
 <body>
     <nav class="navbar">
-        <a href="index.html" class="logo"><img src="images/logo.png" alt="CODESEVA Logo"></a>
-        <div class="nav-links">
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="DEVORA Logo"></a>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="services.html">Services</a>
             <a href="work.html">Works</a>
             <a href="contact.html">Contact</a>
-            <a href="contact.html" class="cta-btn">Get Started</a>
+            <a href="contact.html" class="cta-btn">Initiate Project</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
-    <section class="hero-section">
+    <section id="top" class="hero-section">
         <div class="hero-dot"></div>
         <div class="hero-line"></div>
         <div class="hero-left">
             <div class="hero-title">
-                YOUR<br>PARTNER IN<br>
-                <span class="web-design">WEB DESIGN</span><br>
-                <span class="amp">&</span>
-                <span class="dev-badge">Development</span>
+                ARCHITECTING<br>MARKET-DEFINING<br>
+                <span class="web-design">DIGITAL PRODUCTS</span><br>
+                <span class="amp" style="font-size: 3rem;">FROM</span>
+                <span class="dev-badge">Absolute Zero</span>
             </div>
             <div class="hero-desc">
-                In today's digital-first world, your online presence can make or break your business. If you're searching for a professional web agency, look no further. We craft stunning websites and seamless digital experiences that elevate brands and fuel growth.
+                DEVORA is an elite 0 → 1 product agency. We take you from zero direction to a validated, high-performing digital reality. No brief required—just rapid, end-to-end execution.
             </div>
             <div class="scroll-arrow">
                 <div class="arrow-circle"><i class="fas fa-arrow-down"></i></div>
@@ -502,94 +930,49 @@
     <!-- Scrolling Text 1 -->
     <div class="scrolling-text-container">
         <div class="scrolling-text-track">
-            <span class="scrolling-text">Crafting Digital Excellence • Transforming Ideas into Reality • Building Future-Ready Solutions •</span>
-            <span class="scrolling-text">Crafting Digital Excellence • Transforming Ideas into Reality • Building Future-Ready Solutions •</span>
-            </div>
-            </div>
+            <span class="scrolling-text">The 0 → 1 Product Engine • We Build What You Can't Yet Articulate • Navigating Reality •</span>
+            <span class="scrolling-text">The 0 → 1 Product Engine • We Build What You Can't Yet Articulate • Navigating Reality •</span>
+        </div>
+    </div>
 
-    <!-- About Section with Scrolling Images -->
-    <section class="about-section">
-        <div class="about-content">
-            <div class="about-header">
-                <h2>About <span style="color:#b2cbea;">CODESEVA</span></h2>
-                <p>We are a future-focused digital agency, passionate about building brands and digital experiences that inspire, engage, and deliver results.</p>
+    <section id="about" class="about-focus-section">
+        <div class="about-focus-grid">
+            <div class="about-focus-copy">
+                <span class="eyebrow">Beyond the Brief</span>
+                <h2>Beyond Development. We Are Product Architects.</h2>
+                <p>Most agencies ask what you want to build. We figure out what the market demands. DEVORA exists to solve the paralyzing "what's next?" problem that keeps ambitious visions stalled in the conceptual phase. We specialize in navigating uncertainty.</p>
+                <div class="about-focus-features">
+                    <div class="feature-pill">
+                        <strong>We Chart The Course</strong>
+                        <span>You bring the ambition; we orchestrate the entire product vision. We think for you.</span>
+                    </div>
+                    <div class="feature-pill">
+                        <strong>Engineered From Zero</strong>
+                        <span>No comprehensive brief required. We build the roadmap from a blank slate.</span>
+                    </div>
+                    <div class="feature-pill">
+                        <strong>Uncompromising Aesthetics</strong>
+                        <span>We don't ship MVPs. Every interface we hand over feels inherently premium and visionary.</span>
+                    </div>
+                    <div class="feature-pill">
+                        <strong>Impact Over Output</strong>
+                        <span>We prioritize relentless momentum, delivering mechanics built for real-world scaling.</span>
+                    </div>
+                </div>
+                <a href="about.html" class="cta-btn">View Our Stack</a>
             </div>
-            <div class="image-cards-container">
-                <div class="image-cards-track">
-                    <!-- First set of images -->
-                    <div class="image-card">
-                        <img src="images/brands elevated.jpg" alt="Brands Elevated">
-                        <div class="image-card-overlay">
-                            <div class="image-card-content">
-                                <h3>50+ Brands Elevated</h3>
-                                <p>We've transformed over 50 brands through innovative digital solutions, helping them achieve remarkable growth and market presence. Our strategic approach combines creativity with data-driven insights.</p>
-                                <a href="#" class="read-more">
-                                    Learn More <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="image-card">
-                        <img src="images/clint rating.jpg" alt="Client Rating">
-                        <div class="image-card-overlay">
-                            <div class="image-card-content">
-                                <h3>5.0 Client Rating</h3>
-                                <p>Our commitment to excellence has earned us a perfect 5.0 rating from our clients. We pride ourselves on delivering exceptional results and maintaining long-term partnerships.</p>
-                                <a href="#" class="read-more">
-                                    View Testimonials <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="image-card">
-                        <img src="images/project delevered.jpg" alt="Projects Delivered">
-                        <div class="image-card-overlay">
-                            <div class="image-card-content">
-                                <h3>100+ Projects Delivered</h3>
-                                <p>With over 100 successful projects across various industries, we've established ourselves as a trusted partner for businesses seeking digital transformation and growth.</p>
-                                <a href="#" class="read-more">
-                                    Explore Projects <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Duplicate set for seamless loop -->
-                    <div class="image-card">
-                        <img src="images/brands elevated.jpg" alt="Brands Elevated">
-                        <div class="image-card-overlay">
-                            <div class="image-card-content">
-                                <h3>50+ Brands Elevated</h3>
-                                <p>We've transformed over 50 brands through innovative digital solutions, helping them achieve remarkable growth and market presence. Our strategic approach combines creativity with data-driven insights.</p>
-                                <a href="#" class="read-more">
-                                    Learn More <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="image-card">
-                        <img src="images/clint rating.jpg" alt="Client Rating">
-                        <div class="image-card-overlay">
-                            <div class="image-card-content">
-                                <h3>5.0 Client Rating</h3>
-                                <p>Our commitment to excellence has earned us a perfect 5.0 rating from our clients. We pride ourselves on delivering exceptional results and maintaining long-term partnerships.</p>
-                                <a href="#" class="read-more">
-                                    View Testimonials <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="image-card">
-                        <img src="images/project delevered.jpg" alt="Projects Delivered">
-                        <div class="image-card-overlay">
-                            <div class="image-card-content">
-                                <h3>100+ Projects Delivered</h3>
-                                <p>With over 100 successful projects across various industries, we've established ourselves as a trusted partner for businesses seeking digital transformation and growth.</p>
-                                <a href="#" class="read-more">
-                                    Explore Projects <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+            <div class="about-focus-panel">
+                <div class="about-metrics-card">
+                    <span>Mission</span>
+                    <p>To transform raw ambition into market-defining digital products.</p>
+                </div>
+                <div class="about-metrics-card">
+                    <span>Vision</span>
+                    <p>To be the definitive 0 → 1 execution partner for visionaries who want to build the future, faster.</p>
+                </div>
+                <div class="about-metrics-card">
+                    <span>0 → 1</span>
+                    <p>Accelerated product execution designed to capture immediate user traction and scale.</p>
                 </div>
             </div>
         </div>
@@ -598,251 +981,124 @@
     <!-- Scrolling Text 2 -->
     <div class="scrolling-text-container">
         <div class="scrolling-text-track">
-            <span class="scrolling-text">Innovative Solutions • Creative Excellence • Client Success Stories •</span>
-            <span class="scrolling-text">Innovative Solutions • Creative Excellence • Client Success Stories •</span>
+            <span class="scrolling-text">Your Ambition, Systematized and Shipped • From Absolute Zero to Inevitable Launch •</span>
+            <span class="scrolling-text">Your Ambition, Systematized and Shipped • From Absolute Zero to Inevitable Launch •</span>
         </div>
     </div>
 
-    <!-- Services Section -->
-    <section class="services-scroll-section">
-        <div class="services-scroll-title">
-            <h2>Our Services</h2>
-            <p>Comprehensive digital solutions to help your business thrive in the modern world</p>
+    <section id="services" class="services-preview-section">
+        <div class="section-heading">
+            <h2>The DEVORA Standard</h2>
+            <p>End-to-end capabilities designed to synthesize vague ambition into sharp, actionable, and innovative product visions.</p>
         </div>
-        <div class="services-scroll-wrapper">
-            <div class="services-scroll-container">
-                <!-- Web Development Services -->
-                <div class="service-scroll-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Custom Websites</h3>
-                    <p>Tailored websites that perfectly match your brand and business needs, built with modern frameworks.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>E-Commerce</h3>
-                    <p>Powerful online stores with secure payment gateways and seamless shopping experiences.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Responsive Design</h3>
-                    <p>Mobile-first websites that look and function perfectly across all devices.</p>
-                </div>
-
-                <!-- Software Development -->
-                <div class="service-scroll-card">
-                    <i class="fas fa-code"></i>
-                    <h3>Custom Software</h3>
-                    <p>Bespoke software solutions tailored to your specific business requirements.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-mobile"></i>
-                    <h3>Mobile Apps</h3>
-                    <p>Native and cross-platform mobile applications for iOS and Android.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-cogs"></i>
-                    <h3>API Development</h3>
-                    <p>Robust and scalable API solutions for system integration.</p>
-                </div>
-
-                <!-- IT Infrastructure -->
-                <div class="service-scroll-card">
-                    <i class="fas fa-server"></i>
-                    <h3>Server Management</h3>
-                    <p>24/7 server monitoring and optimization for maximum uptime.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-network-wired"></i>
-                    <h3>Network Solutions</h3>
-                    <p>Design and implementation of secure network infrastructure.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-cloud"></i>
-                    <h3>Cloud Services</h3>
-                    <p>Cloud migration and management across major platforms.</p>
-                </div>
-
-                <!-- Duplicate cards for seamless scrolling -->
-                <div class="service-scroll-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Custom Websites</h3>
-                    <p>Tailored websites that perfectly match your brand and business needs, built with modern frameworks.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-shopping-cart"></i>
-                    <h3>E-Commerce</h3>
-                    <p>Powerful online stores with secure payment gateways and seamless shopping experiences.</p>
-                </div>
-                <div class="service-scroll-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Responsive Design</h3>
-                    <p>Mobile-first websites that look and function perfectly across all devices.</p>
-                </div>
-            </div>
+        <div class="services-preview-grid">
+            <article class="service-preview-card">
+                <h3>Concept Synthesis</h3>
+                <p>Distilling vague ambition into a sharp, actionable, and innovative product vision.</p>
+                <a href="services.html" class="service-link">View Capabilities</a>
+            </article>
+            <article class="service-preview-card">
+                <h3>Strategic Validation</h3>
+                <p>Data-backed roadmaps designed to stress-test viability and mitigate risk before scaling.</p>
+                <a href="services.html" class="service-link">View Capabilities</a>
+            </article>
+            <article class="service-preview-card">
+                <h3>UI/UX Architecture</h3>
+                <p>Futuristic, pixel-perfect interfaces engineered for seamless and premium user experiences.</p>
+                <a href="services.html" class="service-link">View Capabilities</a>
+            </article>
+            <article class="service-preview-card">
+                <h3>Full-Stack Engineering</h3>
+                <p>Robust, high-performance development utilizing modern and scalable tech stacks.</p>
+                <a href="services.html" class="service-link">View Capabilities</a>
+            </article>
+        </div>
+        <div class="services-preview-cta">
+            <a href="services.html" class="cta-btn">Explore The Framework</a>
         </div>
     </section>
 
     <!-- Scrolling Text 3 -->
     <div class="scrolling-text-container">
         <div class="scrolling-text-track">
-            <span class="scrolling-text">Delivering Impact • Driving Growth • Exceeding Expectations •</span>
-            <span class="scrolling-text">Delivering Impact • Driving Growth • Exceeding Expectations •</span>
+            <span class="scrolling-text">Concept Synthesis • Strategic Validation • UI/UX Architecture • Full-Stack Engineering • Velocity Launch •</span>
+            <span class="scrolling-text">Concept Synthesis • Strategic Validation • UI/UX Architecture • Full-Stack Engineering • Velocity Launch •</span>
         </div>
     </div>
 
-    <!-- Featured Projects Section -->
-    <section class="projects-scroll-section">
-        <div class="projects-scroll-title">
-            <h2>Selected Works</h2>
-            <p>Some of our best and most recent projects</p>
+    <section class="movie-schedule-section">
+        <div class="section-heading">
+            <h2>Our Work</h2>
+            <p>A selection of premium digital projects — each one crafted with cinematic precision, refined motion, and a polished visual identity.</p>
         </div>
-        <div class="projects-scroll-wrapper">
-            <div class="projects-scroll-container">
-                <!-- Project 1 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: #f5f5f5;">
-                        <img src="./images/brands elevated.jpg" alt="Brands Elevated" style="max-width: 100%; height: auto;">
+        <div class="movie-grid">
+            <article class="movie-card">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Brand Experience</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Web Design</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
                     </div>
-                    <div class="project-content">
-                        <div class="project-header-meta">
-                            <span class="project-badge">Brand Development</span>
-                            <span class="project-year">2024</span>
-                        </div>
-                        <h3>Brands Elevated</h3>
-                        <p class="project-description">Transforming businesses through innovative digital solutions and strategic brand development.</p>
-                        <div class="project-tech-excellence">Technology Excellence</div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Brand Strategy</span>
-                            <span class="tech-tag">Digital Marketing</span>
-                            <span class="tech-tag">Web Development</span>
-                        </div>
-                        <div class="project-type-section">
-                            <div class="project-type-label">BRANDING</div>
-                        </div>
-                    </div>
+                    <div class="movie-big-time">01</div>
                 </div>
-
-                <!-- Project 2 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: #f5f5f5;">
-                        <img src="./images/clint rating.jpg" alt="Client Success" style="max-width: 100%; height: auto;">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-header-meta">
-                            <span class="project-badge">Client Success</span>
-                            <span class="project-year">2024</span>
-                        </div>
-                        <h3>Client Success Stories</h3>
-                        <p class="project-description">Consistently exceeding client expectations with innovative solutions and dedicated support.</p>
-                        <div class="project-tech-excellence">Technology Excellence</div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Client Relations</span>
-                            <span class="tech-tag">Support</span>
-                            <span class="tech-tag">Success Metrics</span>
-                        </div>
-                        <div class="project-type-section">
-                            <div class="project-type-label">SERVICE</div>
-                        </div>
-                    </div>
+                <div class="movie-bottom">
+                    <h3>Peak Aperture</h3>
+                    <p>A premium brand platform with clean motion, polished hierarchy, and immersive presentation.</p>
                 </div>
-
-                <!-- Project 3 -->
-                <div class="project-card">
-                    <div class="project-image" style="background: #f5f5f5;">
-                        <img src="./images/project delevered.jpg" alt="Project Delivery" style="max-width: 100%; height: auto;">
+            </article>
+            <article class="movie-card">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Strategy</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">UI/UX</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
                     </div>
-                    <div class="project-content">
-                        <div class="project-header-meta">
-                            <span class="project-badge">Project Excellence</span>
-                            <span class="project-year">2024</span>
-                        </div>
-                        <h3>Project Delivery</h3>
-                        <p class="project-description">Successful implementations across industries with proven methodologies and best practices.</p>
-                        <div class="project-tech-excellence">Technology Excellence</div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Project Management</span>
-                            <span class="tech-tag">Implementation</span>
-                            <span class="tech-tag">Quality Assurance</span>
-                        </div>
-                        <div class="project-type-section">
-                            <div class="project-type-label">DELIVERY</div>
-                        </div>
-                    </div>
+                    <div class="movie-big-time">02</div>
                 </div>
-
-                <!-- Duplicate cards for seamless scroll -->
-                <!-- Project 1 Duplicate -->
-                <div class="project-card">
-                    <div class="project-image" style="background: #f5f5f5;">
-                        <img src="./images/brands elevated.jpg" alt="Brands Elevated" style="max-width: 100%; height: auto;">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-header-meta">
-                            <span class="project-badge">Brand Development</span>
-                            <span class="project-year">2024</span>
-                        </div>
-                        <h3>Brands Elevated</h3>
-                        <p class="project-description">Transforming businesses through innovative digital solutions and strategic brand development.</p>
-                        <div class="project-tech-excellence">Technology Excellence</div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Brand Strategy</span>
-                            <span class="tech-tag">Digital Marketing</span>
-                            <span class="tech-tag">Web Development</span>
-                        </div>
-                        <div class="project-type-section">
-                            <div class="project-type-label">BRANDING</div>
-                        </div>
-                    </div>
+                <div class="movie-bottom">
+                    <h3>Depth of Field</h3>
+                    <p>Design systems and motion that feel calm, luxurious, and easy to navigate at every touch.</p>
                 </div>
-
-                <!-- Project 2 Duplicate -->
-                <div class="project-card">
-                    <div class="project-image" style="background: #f5f5f5;">
-                        <img src="./images/clint rating.jpg" alt="Client Success" style="max-width: 100%; height: auto;">
+            </article>
+            <article class="movie-card">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Studio Craft</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Development</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
                     </div>
-                    <div class="project-content">
-                        <div class="project-header-meta">
-                            <span class="project-badge">Client Success</span>
-                            <span class="project-year">2024</span>
-                        </div>
-                        <h3>Client Success Stories</h3>
-                        <p class="project-description">Consistently exceeding client expectations with innovative solutions and dedicated support.</p>
-                        <div class="project-tech-excellence">Technology Excellence</div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Client Relations</span>
-                            <span class="tech-tag">Support</span>
-                            <span class="tech-tag">Success Metrics</span>
-                        </div>
-                        <div class="project-type-section">
-                            <div class="project-type-label">SERVICE</div>
-                        </div>
-                    </div>
+                    <div class="movie-big-time">03</div>
                 </div>
-
-                <!-- Project 3 Duplicate -->
-                <div class="project-card">
-                    <div class="project-image" style="background: #f5f5f5;">
-                        <img src="./images/project delevered.jpg" alt="Project Delivery" style="max-width: 100%; height: auto;">
-                    </div>
-                    <div class="project-content">
-                        <div class="project-header-meta">
-                            <span class="project-badge">Project Excellence</span>
-                            <span class="project-year">2024</span>
-                        </div>
-                        <h3>Project Delivery</h3>
-                        <p class="project-description">Successful implementations across industries with proven methodologies and best practices.</p>
-                        <div class="project-tech-excellence">Technology Excellence</div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">Project Management</span>
-                            <span class="tech-tag">Implementation</span>
-                            <span class="tech-tag">Quality Assurance</span>
-                        </div>
-                        <div class="project-type-section">
-                            <div class="project-type-label">DELIVERY</div>
-                        </div>
-                    </div>
+                <div class="movie-bottom">
+                    <h3>Midnight Release</h3>
+                    <p>High-end project execution with a focus on cinematic polish and subtle layered animation.</p>
                 </div>
-            </div>
+            </article>
+            <article class="movie-card">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Digital Motion</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Motion</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
+                    </div>
+                    <div class="movie-big-time">04</div>
+                </div>
+                <div class="movie-bottom">
+                    <h3>Glassless Lens</h3>
+                    <p>Modern storytelling through clean interactions, minimal layering, and a deep premium finish.</p>
+                </div>
+            </article>
+        </div>
+        <div style="text-align:center;margin-top:3rem;">
+            <a href="work.html" class="cta-btn" style="background:#111;color:#fff;font-size:1rem;padding:0.85rem 2rem;">View All Work</a>
         </div>
     </section>
 
@@ -854,7 +1110,7 @@
             </div>
             <div style="font-size:4.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1.2rem;line-height:1.05;">ASK TO GET!</div>
             <div style="font-size:2.1rem;font-weight:500;margin-bottom:2.5rem;">
-                <a href="mailto:info@codeseven.in" style="color:#fff;text-decoration:underline;">info@CODESEVA.in</a>
+                <a href="mailto:info@devora.in" style="color:#fff;text-decoration:underline;">info@devora.in</a>
             </div>
             <div style="display:flex;justify-content:center;gap:2.5rem;font-size:1.1rem;font-weight:700;margin-bottom:0;">
                 <a href="index.html" style="color:#fff;text-decoration:none;">ABOUT</a>
@@ -864,10 +1120,11 @@
             </div>
         </div>
         <div class="footer-bottom" style="width:100vw;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3vw 1.2rem 3vw;position:relative;">
-            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 CODE SEVA</div>
+            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 DEVORA</div>
             <div style="display:flex;align-items:center;gap:1.5rem;">
-                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-twitter"></i></a>
                 <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:info@devora.in" style="color:#fff;font-size:1.5rem;"><i class="fas fa-envelope"></i></a>
+                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-github"></i></a>
                 <a href="#top" style="color:#111;background:#fff;border-radius:50%;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-arrow-up"></i></a>
             </div>
         </div>
@@ -884,11 +1141,23 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: false
-        });
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: false });
+
+        // Mobile nav
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                }
+            });
+        }
 
         // Smooth scroll for all anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -908,153 +1177,25 @@
             if (parallaxBg) {
                 parallaxBg.style.setProperty('--scroll-y', `${scrolled * 0.5}px`);
             }
-            
-            // Fade in elements on scroll
             const fadeElements = document.querySelectorAll('.fade-in-up');
             fadeElements.forEach(element => {
                 const elementTop = element.getBoundingClientRect().top;
                 const elementBottom = element.getBoundingClientRect().bottom;
-                const isVisible = elementTop < window.innerHeight && elementBottom >= 0;
-                
-                if (isVisible) {
+                if (elementTop < window.innerHeight && elementBottom >= 0) {
                     element.style.opacity = '1';
                     element.style.transform = 'translateY(0)';
                 }
             });
         });
-
-        // Services Scroll Animation
-        const scrollContainers = document.querySelectorAll('.services-scroll-container');
-        
-        scrollContainers.forEach(container => {
-            container.addEventListener('mouseenter', () => {
-                container.style.animationPlayState = 'paused';
-            });
-            
-            container.addEventListener('mouseleave', () => {
-                container.style.animationPlayState = 'running';
-            });
-        });
-
-        // Featured Projects Horizontal Scroll
-        function loadFeaturedProjectsScroll() {
-            const featuredProjects = [
-                {
-                    title: "CPL SPORTS TII",
-                    description: "Advanced sports event management ecosystem connecting elite players with...",
-                    image: "images/cpl_sports.png",
-                    category: "Enterprise Sports Platform",
-                    year: "2024",
-                    technologies: ["Flutter Pro", "PHP 8.2", "Laravel", "Bootstrap 5"],
-                    projectType: "WEB APP"
-                },
-                {
-                    title: "Web Development Agency",
-                    description: "Crafting modern websites and digital experiences for businesses of all sizes.",
-                    image: "images/clint rating.jpg",
-                    category: "Digital Agency",
-                    year: "2023",
-                    technologies: ["React", "Node.js", "MongoDB"],
-                    projectType: "WEB APP"
-                },
-                {
-                    title: "Mobile Finance App",
-                    description: "An intuitive finance management app that helps users track expenses and manage budgets efficiently.",
-                    image: "images/project2.jpg",
-                    category: "FinTech",
-                    year: "2023",
-                    technologies: ["Mobile Development", "UI Design", "FinTech"],
-                    projectType: "MOBILE APP"
-                },
-                {
-                    title: "Healthcare Patient Portal",
-                    description: "A secure patient portal for healthcare providers, enabling seamless communication and record access.",
-                    image: "images/project3.jpg",
-                    category: "Healthcare Solution",
-                    year: "2024",
-                    technologies: ["Web Development", "Security", "Healthcare"],
-                    projectType: "WEB APP"
-                },
-                {
-                    title: "Restaurant Ordering System",
-                    description: "A digital ordering system for restaurants with real-time order tracking and inventory management.",
-                    image: "images/project4.jpg",
-                    category: "E-commerce",
-                    year: "2023",
-                    technologies: ["Web App", "Mobile App", "UI/UX Design"],
-                    projectType: "WEB APP"
-                },
-                {
-                    title: "Fitness Tracking Application",
-                    description: "A comprehensive fitness tracking app with workout plans, nutrition tracking, and progress analytics.",
-                    image: "images/project5.jpg",
-                    category: "Health & Wellness",
-                    year: "2024",
-                    technologies: ["Mobile Development", "Health & Fitness", "Data Analytics"],
-                    projectType: "MOBILE APP"
-                },
-                {
-                    title: "Corporate Branding Redesign",
-                    description: "A complete corporate identity redesign including logo, brand guidelines, and marketing materials.",
-                    image: "images/project6.jpg",
-                    category: "Branding & Design",
-                    year: "2023",
-                    technologies: ["Branding", "Graphic Design", "UI Design"],
-                    projectType: "BRANDING"
-                },
-                {
-                    title: "Cybersecurity Assessment Platform",
-                    description: "Enterprise-grade security assessment tool for identifying vulnerabilities and providing remediation strategies.",
-                    image: "images/project7.jpg",
-                    category: "Security Solution",
-                    year: "2024",
-                    technologies: ["Security", "Enterprise", "Web Development"],
-                    projectType: "SOFTWARE"
-                },
-                {
-                    title: "Smart Home Automation App",
-                    description: "IoT control system allowing users to manage all smart home devices from a single intuitive interface.",
-                    image: "images/project8.jpg",
-                    category: "IoT & Automation",
-                    year: "2024",
-                    technologies: ["IoT", "Mobile Development", "UI Design"],
-                    projectType: "MOBILE APP"
-                }
-            ];
-            const container = document.querySelector('.projects-scroll-container');
-            if (!container) return;
-            // Clear container
-            container.innerHTML = '';
-            // Add cards twice for seamless scroll
-            for (let i = 0; i < 2; i++) {
-                featuredProjects.forEach(project => {
-                    const card = document.createElement('div');
-                    card.className = 'project-card';
-                    card.innerHTML = `
-                        <div class="project-image">
-                            <img src="${project.image}" alt="${project.title}" loading="lazy">
-                        </div>
-                        <div class="project-content">
-                            <div class="project-header-meta">
-                                <span class="project-badge">${project.category}</span>
-                                <span class="project-year">${project.year}</span>
-                            </div>
-                            <h3>${project.title}</h3>
-                            <p class="project-description">${project.description}</p>
-                            <div class="project-tech-excellence">Technology Excellence</div>
-                            <div class="tech-tags">
-                                ${project.technologies.map(tag => `<span class="tech-tag">${tag}</span>`).join('')}
-                            </div>
-                            <div class="project-type-section">
-                                <div class="project-type-label">${project.projectType}</div>
-                            </div>
-                        </div>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-        }
-        document.addEventListener('DOMContentLoaded', loadFeaturedProjectsScroll);
+    });
     </script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/interactions.js"></script>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
 </body>
 </html> 

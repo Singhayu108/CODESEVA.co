@@ -1,6 +1,6 @@
-# CODESEVA - Website
+# DEVORA - Website
 
-A professional website for CODESEVA showcasing services, projects, and contact information.
+A professional website for DEVORA showcasing services, projects, and contact information.
 
 ## Overview
 
@@ -80,4 +80,4 @@ For questions or support, contact info@trammanagement.com.
 
 ---
 
-© 2025 CODESEVA. All rights reserved. 
+© 2025 DEVORA. All rights reserved. 

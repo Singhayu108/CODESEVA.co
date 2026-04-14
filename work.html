@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Work - CODESEVA</title>
+    <title>Our Work - DEVORA</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <style>
         body { background: #fff; color: #111; font-family: 'Montserrat', Arial, sans-serif; margin: 0; }
-        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem 1.5rem 2rem; background: #fff; border-bottom: 1px solid #eee; }
-        .navbar .logo img { 
-            height: 80px;
-            width: auto;
-            transition: transform 0.2s ease;
-        }
-        .navbar .logo img:hover {
-            transform: translateY(-2px);
-        }
-        .nav-links { display: flex; gap: 2.2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
+        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem 1.2rem 2rem; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+        .navbar .logo img { height: 48px; width: auto; transition: transform 0.2s ease; }
+        .navbar .logo img:hover { transform: translateY(-2px); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
         .nav-links a:hover { color: #3a3a3a; }
-        .cta-btn { background: #443f43; color: #fff; border: none; border-radius: 1.2rem; padding: 0.7rem 1.7rem; font-weight: 700; font-size: 1.05rem; margin-left: 2rem; cursor: pointer; transition: background 0.2s; }
-        .cta-btn:hover { background: #222; }
+        .cta-btn { background: #111; color: #fff; border: none; border-radius: 1.2rem; padding: 0.65rem 1.5rem; font-weight: 700; font-size: 1rem; margin-left: 1.5rem; cursor: pointer; transition: background 0.2s; text-decoration: none; display: inline-block; }
+        .cta-btn:hover { background: #333; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 300; }
+        .hamburger span { display: block; width: 26px; height: 2px; background: #111; border-radius: 2px; transition: all 0.3s; }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        @media (max-width: 768px) {
+            .navbar { padding: 1rem 1.5rem; }
+            .nav-links { display: none; flex-direction: column; position: fixed; top: 0; right: 0; height: 100vh; width: 280px; background: #fff; padding: 5rem 2rem 2rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1); z-index: 200; transition: transform 0.3s; transform: translateX(100%); }
+            .nav-links.open { display: flex; transform: translateX(0); }
+            .hamburger { display: flex; }
+        }
 
         /* Work Page Specific Styles */
         .work-hero {
@@ -104,82 +109,186 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
+            max-width: 1240px;
+            margin: 0 auto;
         }
 
+        /* ── MOVIE CARD: full cinematic poster layout ── */
         .portfolio-item {
             position: relative;
-            border-radius: 20px;
+            border-radius: 1.6rem;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: #0a0c10;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.18);
             cursor: pointer;
-        }
-
-        .portfolio-image {
-            position: relative;
-            padding-bottom: 75%;
-            background-size: cover;
-            background-position: center;
-            transition: transform 0.3s ease;
-        }
-
-        .portfolio-item:hover .portfolio-image {
-            transform: scale(1.05);
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            padding: 2rem;
-            text-align: center;
-            pointer-events: auto;
+            text-decoration: none;
+            transition: all 0.3s;
         }
-
-        .portfolio-item:hover .portfolio-overlay {
+        /* poster wrapper — fixed tall height */
+        .movie-poster {
+            position: relative;
+            width: 100%;
+            height: 480px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        /* subtle parallax on hover */
+        .movie-poster-img {
+            position: absolute;
+            inset: -6% 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.9s cubic-bezier(0.22,1,0.36,1);
+            will-change: transform;
+        }
+        .portfolio-item:hover .movie-poster-img {
+            transform: translateY(-6px) scale(1.04);
+        }
+        /* dark gradient overlay */
+        .movie-poster::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(4,5,8,0.08) 0%,
+                transparent 30%,
+                transparent 45%,
+                rgba(4,5,8,0.55) 70%,
+                rgba(4,5,8,0.95) 100%
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+        /* ── GENRE PILL — starts hidden above, slides down on hover ── */
+        .genre-pill {
+            position: absolute;
+            top: 1.2rem;
+            left: 1.2rem;
+            z-index: 3;
+            background: rgba(178,203,234,0.92);
+            color: #0a0c10;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            transform: translateY(-36px);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1),
+                        opacity 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .portfolio-item:hover .genre-pill {
+            transform: translateY(0);
             opacity: 1;
         }
-
-        .portfolio-overlay h3 {
+        /* ── META BADGE — timing info, slides up on hover ── */
+        .movie-meta {
+            position: absolute;
+            left: 1.2rem;
+            bottom: 7.2rem;
+            z-index: 3;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding: 0.6rem 1rem;
+            background: rgba(10,12,16,0.72);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1.2rem;
+            backdrop-filter: blur(8px);
+            transform: translateY(0);
+            opacity: 1;
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1),
+                        opacity 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .portfolio-item:hover .movie-meta {
+            transform: translateY(-14px);
+            opacity: 0.85;
+        }
+        .movie-time,
+        .movie-duration {
+            color: #f4f7fb;
+            font-size: 0.88rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+        .movie-divider {
+            width: 1px;
+            height: 1rem;
+            background: rgba(255,255,255,0.2);
+        }
+        /* ── BIG NUMBER — decorative, shifts up on hover ── */
+        .movie-big-time {
+            position: absolute;
+            bottom: 5.8rem;
+            right: 1rem;
+            z-index: 2;
+            color: rgba(255,255,255,0.08);
+            font-size: clamp(4.5rem, 6vw, 6.5rem);
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            line-height: 1;
+            pointer-events: none;
+            transition: transform 0.9s cubic-bezier(0.22,1,0.36,1),
+                        color 0.6s ease;
+        }
+        .portfolio-item:hover .movie-big-time {
+            transform: translateY(-16px);
+            color: rgba(255,255,255,0.13);
+        }
+        /* ── BOTTOM PANEL — always visible, lifts on hover ── */
+        .movie-bottom {
+            position: relative;
+            z-index: 3;
+            padding: 1.6rem 1.4rem 1.8rem;
+            background: #0a0c10;
+            transform: translateY(0);
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+        .portfolio-item:hover .movie-bottom {
+            transform: translateY(-6px);
+        }
+        .movie-bottom h3 {
             color: #fff;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 0.6rem;
+            letter-spacing: -0.01em;
         }
-
-        .portfolio-overlay p {
-            color: rgba(255,255,255,0.8);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+        .movie-bottom p {
+            color: rgba(238,242,247,0.65);
+            line-height: 1.75;
+            font-size: 0.92rem;
+            margin-bottom: 1.2rem;
         }
-
         .view-project {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: #fff;
+            color: #b2cbea;
             font-weight: 600;
             text-decoration: none;
-            padding: 0.8rem 1.5rem;
-            border: 2px solid #fff;
-            border-radius: 30px;
+            font-size: 0.95rem;
             transition: all 0.3s ease;
             cursor: pointer;
             background: transparent;
+            border: none;
+            padding: 0;
             font-family: inherit;
         }
-
         .view-project:hover {
-            background: #fff;
-            color: #111;
-            transform: translateY(-2px);
+            color: #fff;
+            transform: translateX(4px);
         }
 
         .stats-section {
@@ -219,18 +328,13 @@
         }
 
         @media (max-width: 768px) {
-            .work-hero h1 {
-                font-size: 3.5rem;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
+            .work-hero h1 { font-size: clamp(2rem, 7vw, 3.5rem); }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+        }
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .work-hero { padding: 5rem 5vw; min-height: auto; }
         }
 
         .modal {
@@ -377,22 +481,24 @@
 <body>
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="index.html" class="logo"><img src="images/logo.png" alt="CODESEVA Logo"></a>
-        <div class="nav-links">
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="DEVORA Logo"></a>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <a href="services.html">Services</a>
             <a href="work.html" class="active">Works</a>
             <a href="contact.html">Contact</a>
-            <a href="contact.html" class="cta-btn">Get Started</a>
+            <a href="contact.html" class="cta-btn">Initiate Project</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
-    <!-- Hero Section -->
     <section class="work-hero">
         <div class="work-hero-content">
-            <h1>Showcasing Our Creative Journey</h1>
-            <p>Explore a collection of our diverse projects, from innovative web designs to robust software solutions.</p>
+            <h1>Validation In Reality</h1>
+            <p>Explore a collection of our executed projects. From absolute zero to deployed, high-velocity digital products.</p>
         </div>
     </section>
 
@@ -408,58 +514,112 @@
 
         <div class="portfolio-grid">
             <!-- Web Development Projects -->
-            <div class="portfolio-item" data-category="web">
-                <div class="portfolio-image" style="background-image: url('images/clint rating.jpg')"></div>
-                <div class="portfolio-overlay">
+            <article class="portfolio-item" data-category="web">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Web Dev</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">E-Commerce</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
+                    </div>
+                    <div class="movie-big-time">01</div>
+                </div>
+                <div class="movie-bottom">
                     <h3>E-Commerce Platform</h3>
                     <p>A modern e-commerce solution with seamless user experience</p>
                     <button class="view-project">View Project <i class="fas fa-arrow-right"></i></button>
                 </div>
-            </div>
-            <div class="portfolio-item" data-category="web">
-                <div class="portfolio-image" style="background-image: url('images/brands elevated.jpg')"></div>
-                <div class="portfolio-overlay">
+            </article>
+            <article class="portfolio-item" data-category="web">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Web Dev</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Corporate</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
+                    </div>
+                    <div class="movie-big-time">02</div>
+                </div>
+                <div class="movie-bottom">
                     <h3>Corporate Website</h3>
                     <p>Clean and professional website for a global corporation</p>
                     <button class="view-project">View Project <i class="fas fa-arrow-right"></i></button>
                 </div>
-            </div>
+            </article>
 
             <!-- App Development Projects -->
-            <div class="portfolio-item" data-category="app">
-                <div class="portfolio-image" style="background-image: url('images/happy clint.jpg')"></div>
-                <div class="portfolio-overlay">
+            <article class="portfolio-item" data-category="app">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">App Dev</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Fitness App</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
+                    </div>
+                    <div class="movie-big-time">03</div>
+                </div>
+                <div class="movie-bottom">
                     <h3>Fitness App</h3>
                     <p>Mobile application for tracking workouts and nutrition</p>
                     <button class="view-project">View Project <i class="fas fa-arrow-right"></i></button>
                 </div>
-            </div>
-            <div class="portfolio-item" data-category="app">
-                <div class="portfolio-image" style="background-image: url('images/project delevered.jpg')"></div>
-                <div class="portfolio-overlay">
+            </article>
+            <article class="portfolio-item" data-category="app">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">App Dev</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Food App</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
+                    </div>
+                    <div class="movie-big-time">04</div>
+                </div>
+                <div class="movie-bottom">
                     <h3>Food Delivery App</h3>
                     <p>User-friendly food ordering and delivery platform</p>
                     <button class="view-project">View Project <i class="fas fa-arrow-right"></i></button>
                 </div>
-            </div>
+            </article>
 
             <!-- Branding Projects -->
-            <div class="portfolio-item" data-category="branding">
-                <div class="portfolio-image" style="background-image: url('images/happy clint.jpg')"></div>
-                <div class="portfolio-overlay">
+            <article class="portfolio-item" data-category="branding">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Branding</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Identity</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
+                    </div>
+                    <div class="movie-big-time">05</div>
+                </div>
+                <div class="movie-bottom">
                     <h3>Brand Identity</h3>
                     <p>Complete branding package for a startup company</p>
                     <button class="view-project">View Project <i class="fas fa-arrow-right"></i></button>
                 </div>
-            </div>
-            <div class="portfolio-item" data-category="branding">
-                <div class="portfolio-image" style="background-image: url('images/brands elevated.jpg')"></div>
-                <div class="portfolio-overlay">
+            </article>
+            <article class="portfolio-item" data-category="branding">
+                <div class="movie-poster">
+                    <div class="movie-poster-img" style="background-image:url('images/white.png');"></div>
+                    <span class="genre-pill">Branding</span>
+                    <div class="movie-meta">
+                        <div class="movie-time">Logo</div>
+                        <div class="movie-divider"></div>
+                        <div class="movie-duration">2024</div>
+                    </div>
+                    <div class="movie-big-time">06</div>
+                </div>
+                <div class="movie-bottom">
                     <h3>Logo Design</h3>
                     <p>Modern logo design for a tech company</p>
                     <button class="view-project">View Project <i class="fas fa-arrow-right"></i></button>
                 </div>
-            </div>
+            </article>
         </div>
     </section>
 
@@ -493,7 +653,7 @@
             </div>
             <div style="font-size:4.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1.2rem;line-height:1.05;">ASK TO GET!</div>
             <div style="font-size:2.1rem;font-weight:500;margin-bottom:2.5rem;">
-                <a href="mailto:info@codeseva.com" style="color:#fff;text-decoration:underline;">info@codeseva.com</a>
+                <a href="mailto:info@devora.in" style="color:#fff;text-decoration:underline;">info@devora.in</a>
             </div>
             <div style="display:flex;justify-content:center;gap:2.5rem;font-size:1.1rem;font-weight:700;margin-bottom:0;">
                 <a href="index.html" style="color:#fff;text-decoration:none;">ABOUT</a>
@@ -503,10 +663,11 @@
             </div>
         </div>
         <div class="footer-bottom" style="width:100vw;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3vw 1.2rem 3vw;position:relative;">
-            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 CODESEVA</div>
+            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 DEVORA</div>
             <div style="display:flex;align-items:center;gap:1.5rem;">
-                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-twitter"></i></a>
                 <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
+                <a href="mailto:info@devora.in" style="color:#fff;font-size:1.5rem;"><i class="fas fa-envelope"></i></a>
+                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-github"></i></a>
                 <a href="#top" style="color:#111;background:#fff;border-radius:50%;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-arrow-up"></i></a>
             </div>
         </div>
@@ -548,11 +709,23 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
         // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: false
-        });
+        AOS.init({ duration: 800, easing: 'ease-in-out', once: false });
+
+        // Mobile nav
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
+                }
+            });
+        }
 
         // Portfolio filtering
         const filterButtons = document.querySelectorAll('.filter-btn');
@@ -742,6 +915,15 @@
                 }
             });
         });
+        });
     </script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/interactions.js"></script>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
 </body>
 </html> 

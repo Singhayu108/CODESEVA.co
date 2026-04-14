@@ -3,900 +3,631 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - CODESEVA</title>
+    <title>About Us - DEVORA</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #fff; color: #111; font-family: 'Montserrat', Arial, sans-serif; margin: 0; }
-        .navbar { display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 3rem 1.5rem 2rem; background: #fff; border-bottom: 1px solid #eee; }
-        .navbar .logo img { 
-            height: 80px;
-            width: auto;
-            transition: transform 0.2s ease;
-        }
-        .navbar .logo img:hover {
-            transform: translateY(-2px);
-        }
-        .nav-links { display: flex; gap: 2.2rem; align-items: center; }
-        .nav-links a { text-decoration: none; color: #111; font-weight: 700; font-size: 1.1rem; letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s; }
-        .nav-links a:hover { color: #3a3a3a; }
-        .cta-btn { background: #443f43; color: #fff; border: none; border-radius: 1.2rem; padding: 0.7rem 1.7rem; font-weight: 700; font-size: 1.05rem; margin-left: 2rem; cursor: pointer; transition: background 0.2s; }
-        .cta-btn:hover { background: #222; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { background: #fff; color: #111; font-family: 'Montserrat', Arial, sans-serif; overflow-x: hidden; }
 
-        /* About Page Specific Styles */
-        .about-hero {
-            min-height: 70vh;
-            background: linear-gradient(135deg, #fff 0%, #b2cbea 100%);
-            position: relative;
-            overflow: hidden;
-            padding: 6rem 6vw 4rem 6vw;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4rem;
+        /* ── NAVBAR ── */
+        .navbar {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.2rem 3rem 1.2rem 2rem; background: #fff;
+            border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100;
         }
-        .about-hero-content {
-            flex: 1 1 0;
-            max-width: 520px;
-            position: relative;
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .navbar .logo img { height: 48px; width: auto; transition: transform 0.2s; }
+        .navbar .logo img:hover { transform: translateY(-2px); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a {
+            text-decoration: none; color: #111; font-weight: 700; font-size: 1rem;
+            letter-spacing: 0.04em; text-transform: uppercase; transition: color 0.2s;
+        }
+        .nav-links a:hover, .nav-links a.active { color: #3a3a3a; }
+        .cta-btn {
+            background: #111; color: #fff; border: none; border-radius: 1.2rem;
+            padding: 0.65rem 1.5rem; font-weight: 700; font-size: 1rem;
+            margin-left: 1.5rem; cursor: pointer; text-decoration: none;
+            transition: background 0.2s; display: inline-block;
+        }
+        .cta-btn:hover { background: #333; }
+
+        /* Mobile hamburger */
+        .hamburger {
+            display: none; flex-direction: column; gap: 5px; cursor: pointer;
+            background: none; border: none; padding: 4px;
+        }
+        .hamburger span {
+            display: block; width: 26px; height: 2px; background: #111;
+            border-radius: 2px; transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── HERO ── */
+        .about-hero {
+            background: #111; color: #fff;
+            padding: 7rem 6vw 5rem 6vw;
+            position: relative; overflow: hidden;
+        }
+        .about-hero::before {
+            content: '';
+            position: absolute; top: -120px; right: -120px;
+            width: 520px; height: 520px;
+            background: radial-gradient(circle, rgba(178,203,234,0.18) 0%, transparent 70%);
+            border-radius: 50%; pointer-events: none;
+        }
+        .about-hero-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 4rem; align-items: center;
+        }
+        .about-hero-copy { position: relative; z-index: 2; }
+        .about-hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            color: #b2cbea; font-size: 0.85rem; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.4rem;
+        }
+        .about-hero-eyebrow::before {
+            content: ''; display: block; width: 28px; height: 2px; background: #b2cbea;
         }
         .about-hero h1 {
-            font-size: 3.2rem;
-            font-weight: 900;
-            color: #111;
-            margin-bottom: 1.2rem;
-            line-height: 1.1;
+            font-size: clamp(2.6rem, 4.5vw, 4.2rem);
+            font-weight: 900; line-height: 1.05;
+            color: #fff; margin-bottom: 1.6rem;
         }
         .about-hero p {
-            font-size: 1.25rem;
-            color: #333;
-            max-width: 480px;
-            margin-bottom: 0;
-            line-height: 1.6;
+            font-size: 1.1rem; color: rgba(255,255,255,0.78);
+            line-height: 1.85; max-width: 520px;
         }
-        .about-hero-image {
-            flex: 1 1 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 2;
-            min-width: 0;
+        .about-hero-visual {
+            position: relative; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
         }
-        .about-hero-image img {
-            max-width: 380px;
-            width: 100%;
-            height: auto;
-            border-radius: 0;
-            box-shadow: none;
-            background: none;
+        .about-hero-img-wrap {
+            position: relative; width: 100%; max-width: 420px;
         }
-        @media (max-width: 992px) {
-            .about-hero {
-                flex-direction: column;
-                padding: 4rem 3vw 2rem 3vw;
-                gap: 2.5rem;
-            }
-            .about-hero-content {
-                max-width: 100%;
-                align-items: center;
-                text-align: center;
-            }
-            .about-hero-image img {
-                max-width: 320px;
-            }
+        .about-hero-img-wrap img {
+            width: 100%; height: auto; border-radius: 2rem;
+            display: block; object-fit: cover;
         }
-        @media (max-width: 600px) {
-            .about-hero {
-                padding: 2.5rem 1vw 1.5rem 1vw;
-                gap: 1.5rem;
-            }
-            .about-hero h1 {
-                font-size: 2rem;
-            }
-            .about-hero-image img {
-                max-width: 220px;
-            }
+        .about-hero-badge {
+            position: absolute; bottom: -1.5rem; left: -1.5rem;
+            background: #b2cbea; color: #111;
+            padding: 1.2rem 1.6rem; border-radius: 1.4rem;
+            font-weight: 900; font-size: 1.5rem; line-height: 1;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.22);
+        }
+        .about-hero-badge span {
+            display: block; font-size: 0.78rem; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem;
         }
 
-        .about-section {
-            padding: 6rem 6vw;
-            background: linear-gradient(180deg, #eaf2fb 0%, #fff 100%);
-            position: relative;
+        /* ── STATS STRIP ── */
+        .stats-strip {
+            background: #f4f7fb; padding: 3.5rem 6vw;
         }
-        .about-section-top-divider {
-            position: absolute;
-            top: -60px;
-            left: 0;
-            width: 100%;
-            z-index: 2;
-            pointer-events: none;
+        .stats-strip-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 2rem; text-align: center;
         }
-
-        .about-content {
-            max-width: 1000px;
-            margin: 0 auto;
+        .stat-block strong {
+            display: block; font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+            font-weight: 900; color: #111; line-height: 1;
         }
-
-        .about-content h2 {
-            font-size: 3.5rem;
-            font-weight: 900;
-            color: #111;
-            margin-bottom: 3rem;
-            text-align: center;
+        .stat-block p {
+            font-size: 0.95rem; color: #666; margin-top: 0.5rem; font-weight: 600;
+            letter-spacing: 0.04em; text-transform: uppercase;
         }
 
-        .timeline {
-            position: relative;
-            padding: 2rem 0;
-            max-width: 800px;
-            margin: 0 auto;
+        /* ── STORY ── */
+        .story-section {
+            padding: 7rem 6vw; background: #fff;
         }
-
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            height: 100%;
-            width: 2px;
-            background: #b2cbea;
-            transform: translateX(-50%);
+        .story-inner {
+            max-width: 1200px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 5rem; align-items: center;
         }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 4rem;
-            width: 100%;
-            opacity: 0;
-            transform: translateY(20px);
+        .story-copy .section-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            color: #b2cbea; font-size: 0.82rem; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.2rem;
         }
-
-        .timeline-item:last-child {
-            margin-bottom: 0;
+        .story-copy .section-eyebrow::before {
+            content: ''; display: block; width: 24px; height: 2px; background: #b2cbea;
         }
-
-        .timeline-item:nth-child(odd) {
-            padding-right: calc(50% + 2rem);
+        .story-copy h2 {
+            font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 900;
+            color: #111; line-height: 1.1; margin-bottom: 1.4rem;
         }
-
-        .timeline-item:nth-child(even) {
-            padding-left: calc(50% + 2rem);
+        .story-copy p {
+            font-size: 1.05rem; color: #555; line-height: 1.85; margin-bottom: 1.2rem;
         }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #b2cbea;
-            border: 4px solid #fff;
-            box-shadow: 0 0 0 3px #b2cbea;
-            top: 0;
+        .story-timeline {
+            display: flex; flex-direction: column; gap: 0;
         }
-
-        .timeline-item:nth-child(odd)::before {
-            right: calc(50% - 10px);
+        .tl-item {
+            display: flex; gap: 1.6rem; position: relative;
         }
-
-        .timeline-item:nth-child(even)::before {
-            left: calc(50% - 10px);
+        .tl-item:not(:last-child)::after {
+            content: ''; position: absolute;
+            left: 19px; top: 40px; bottom: -1px;
+            width: 2px; background: #e8edf3;
         }
-
-        .timeline-year {
-            position: absolute;
-            top: -2px;
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: #b2cbea;
-            background: #fff;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .tl-dot {
+            flex-shrink: 0; width: 40px; height: 40px;
+            border-radius: 50%; background: #b2cbea;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 0.78rem; color: #111;
+            position: relative; z-index: 1; margin-top: 0.2rem;
         }
-
-        .timeline-item:nth-child(odd) .timeline-year {
-            right: calc(50% + 2rem);
+        .tl-body { padding-bottom: 2.4rem; }
+        .tl-body h4 {
+            font-size: 1.05rem; font-weight: 800; color: #111; margin-bottom: 0.4rem;
         }
+        .tl-body p { font-size: 0.95rem; color: #666; line-height: 1.7; }
 
-        .timeline-item:nth-child(even) .timeline-year {
-            left: calc(50% + 2rem);
-        }
-
-        .timeline-content {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.5s ease;
-        }
-
-        .timeline-content.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .timeline-item:nth-child(odd) .timeline-content {
-            transform: translateX(-20px);
-        }
-
-        .timeline-item:nth-child(even) .timeline-content {
-            transform: translateX(20px);
-        }
-
-        .timeline-content:hover {
-            transform: translateY(-5px) !important;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .timeline-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #111;
-            margin-bottom: 1rem;
-        }
-
-        .timeline-text {
-            font-size: 1.1rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .timeline::before {
-                left: 30px;
-            }
-
-            .timeline-item {
-                padding-left: 80px !important;
-                padding-right: 0 !important;
-            }
-
-            .timeline-item::before {
-                left: 20px !important;
-                right: auto !important;
-            }
-
-            .timeline-year {
-                left: 80px !important;
-                right: auto !important;
-            }
-
-            .timeline-content {
-                transform: translateX(0) !important;
-            }
-        }
-
-        /* Add animation classes */
-        .timeline-item.animate {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .timeline-item.animate .timeline-content {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
+        /* ── VALUES ── */
         .values-section {
-            padding: 6rem 6vw;
-            background: #f8f9fa;
+            padding: 7rem 6vw; background: #111; color: #fff;
         }
-
+        .values-inner { max-width: 1200px; margin: 0 auto; }
+        .values-header { text-align: center; margin-bottom: 4rem; }
+        .values-header .section-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            color: #b2cbea; font-size: 0.82rem; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.2rem;
+        }
+        .values-header .section-eyebrow::before {
+            content: ''; display: block; width: 24px; height: 2px; background: #b2cbea;
+        }
+        .values-header h2 {
+            font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 900;
+            color: #fff; line-height: 1.1;
+        }
         .values-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem;
         }
-
         .value-card {
-            background: #fff;
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 2rem; padding: 2.2rem;
+            transition: transform 0.7s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s;
         }
-
         .value-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.22);
         }
-
-        .value-card i {
-            font-size: 2.5rem;
-            color: #b2cbea;
-            margin-bottom: 1.5rem;
+        .value-icon {
+            width: 52px; height: 52px; border-radius: 1.2rem;
+            background: rgba(178,203,234,0.14);
+            display: flex; align-items: center; justify-content: center;
+            margin-bottom: 1.4rem;
         }
+        .value-icon i { font-size: 1.5rem; color: #b2cbea; }
+        .value-card h3 { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 0.8rem; }
+        .value-card p { font-size: 0.97rem; color: rgba(255,255,255,0.72); line-height: 1.75; }
 
-        .value-card h3 {
-            font-size: 1.8rem;
-            color: #111;
-            margin-bottom: 1rem;
-        }
-
-        .value-card p {
-            font-size: 1.1rem;
-            color: #666;
-            line-height: 1.6;
-        }
-
+        /* ── TEAM ── */
         .team-section {
-            padding: 6rem 6vw;
-            background: #fff;
+            padding: 7rem 6vw; background: #f4f7fb;
         }
-
+        .team-inner { max-width: 1200px; margin: 0 auto; }
+        .team-header { text-align: center; margin-bottom: 4rem; }
+        .team-header .section-eyebrow {
+            display: inline-flex; align-items: center; gap: 0.6rem;
+            color: #b2cbea; font-size: 0.82rem; font-weight: 700;
+            letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 1.2rem;
+        }
+        .team-header .section-eyebrow::before {
+            content: ''; display: block; width: 24px; height: 2px; background: #b2cbea;
+        }
+        .team-header h2 {
+            font-size: clamp(2rem, 3.2vw, 3rem); font-weight: 900;
+            color: #111; line-height: 1.1;
+        }
         .team-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-            margin-top: 3rem;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+            max-width: 1000px; margin: 0 auto;
         }
-
-        .team-member {
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .team-member:hover {
-            transform: translateY(-10px);
-        }
-
-        .team-member img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .team-member h3 {
-            font-size: 1.4rem;
-            color: #111;
-            margin-bottom: 0.5rem;
-        }
-
-        .team-member p {
-            font-size: 1.1rem;
-            color: #666;
-        }
-
-        .team-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .team-modal.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .team-modal-content {
+        .team-card {
+            background: #fff; border-radius: 2rem; overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+            transition: transform 0.7s cubic-bezier(0.22,1,0.36,1), box-shadow 0.5s;
             position: relative;
-            background: #fff;
-            width: 90%;
-            max-width: 600px;
-            margin: auto;
-            padding: 2rem;
-            border-radius: 20px;
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
         }
-
-        .team-modal.active .team-modal-content {
-            transform: translateY(0);
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 24px 60px rgba(0,0,0,0.12);
         }
-
-        .team-modal-close {
+        .team-card-img {
+            width: 100%; aspect-ratio: 1/1; overflow: hidden; position: relative;
+        }
+        .team-card-img img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.22,1,0.36,1);
+        }
+        .team-card:hover .team-card-img img { transform: scale(1.06); }
+        
+        /* Hover overlay for information & links */
+        .team-hover-overlay {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
-            color: #111;
-            cursor: pointer;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .team-modal-close:hover {
-            background: #111;
-            color: #fff;
-        }
-
-        .team-modal-header {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .team-modal-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .team-modal-info h2 {
-            font-size: 2rem;
-            color: #111;
-            margin-bottom: 0.5rem;
-        }
-
-        .team-modal-info p {
-            font-size: 1.2rem;
-            color: #666;
-        }
-
-        .team-modal-bio {
-            font-size: 1.1rem;
-            color: #444;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-        }
-
-        .team-modal-details {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .team-detail-item {
+            inset: 0;
+            background: rgba(10, 12, 16, 0.88);
+            backdrop-filter: blur(5px);
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+            transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1);
+            color: #fff;
         }
-
-        .team-detail-label {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: #666;
+        .team-card:hover .team-hover-overlay {
+            opacity: 1;
         }
-
-        .team-detail-value {
-            font-size: 1.1rem;
-            color: #111;
+        .team-hover-info {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 1.5rem;
+            transform: translateY(15px);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.1s, opacity 0.6s ease 0.1s;
         }
-
-        .team-social-links {
+        .team-card:hover .team-hover-info {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .team-socials {
             display: flex;
             gap: 1rem;
-            justify-content: center;
+            transform: translateY(15px);
+            opacity: 0;
+            transition: transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.15s, opacity 0.6s ease 0.15s;
         }
-
-        .team-social-links a {
-            width: 40px;
-            height: 40px;
+        .team-card:hover .team-socials {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .team-socials a {
+            width: 44px; height: 44px;
             border-radius: 50%;
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #111;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .team-social-links a:hover {
-            background: #111;
+            background: rgba(255,255,255,0.1);
             color: #fff;
-            transform: translateY(-3px);
+            display: flex; justify-content: center; align-items: center;
+            text-decoration: none;
+            transition: background 0.3s, transform 0.3s, color 0.3s;
+        }
+        .team-socials a:hover {
+            background: #b2cbea; color: #111;
+            transform: scale(1.1);
         }
 
-        @media (max-width: 1200px) {
-            .values-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .team-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+        .team-card-body { padding: 1.6rem; text-align: center; }
+        .team-card-body h3 { font-size: 1.25rem; font-weight: 800; color: #111; margin-bottom: 0.4rem; }
+        .team-card-body p { font-size: 0.95rem; color: #666; font-weight: 600; letter-spacing: 0.04em; }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: #111; color: #fff; padding: 0;
+            text-align: center; position: relative;
+            min-height: 60vh; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+        }
+        .footer-main {
+            width: 100vw; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; min-height: 55vh;
+        }
+        .footer-bottom {
+            width: 100vw; display: flex; align-items: center;
+            justify-content: space-between; padding: 1.2rem 3vw;
         }
 
-        @media (max-width: 992px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-hero h1 {
-                font-size: 3.5rem;
-            }
-            
-            .team-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .about-hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+            .about-hero-visual { justify-content: flex-start; }
+            .story-inner { grid-template-columns: 1fr; gap: 3rem; }
+            .values-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-strip-inner { grid-template-columns: repeat(2, 1fr); }
+            .team-grid { grid-template-columns: repeat(3, 1fr); }
         }
-
         @media (max-width: 768px) {
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .about-hero {
-                padding: 6rem 3vw;
-            }
-            
-            .about-hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .about-hero p {
-                font-size: 1.2rem;
-            }
+            .navbar { padding: 1rem 1.5rem; }
+            .nav-links { display: none; flex-direction: column; position: fixed;
+                top: 0; right: 0; height: 100vh; width: 280px; background: #fff;
+                padding: 5rem 2rem 2rem; gap: 1.5rem; box-shadow: -4px 0 20px rgba(0,0,0,0.1);
+                z-index: 200; transition: transform 0.3s; transform: translateX(100%); }
+            .nav-links.open { display: flex; transform: translateX(0); }
+            .hamburger { display: flex; z-index: 300; }
+            .about-hero { padding: 5rem 5vw 4rem; }
+            .about-hero h1 { font-size: 2.4rem; }
+            .story-section, .values-section, .team-section { padding: 5rem 5vw; }
+            .team-grid { grid-template-columns: 1fr; gap: 2rem; max-width: 400px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .stats-strip-inner { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .team-grid { grid-template-columns: 1fr; }
+            .stats-strip-inner { grid-template-columns: 1fr; }
+            .about-hero-badge { left: 0; bottom: -1rem; }
         }
     </style>
 </head>
 <body>
+
     <!-- Navigation -->
     <nav class="navbar">
-        <a href="index.html" class="logo"><img src="images/logo.png" alt="CODESEVA Logo"></a>
-        <div class="nav-links">
+        <a href="index.html" class="logo"><img src="images/logo.png" alt="DEVORA Logo"></a>
+        <div class="nav-links" id="navLinks">
             <a href="index.html">Home</a>
             <a href="about.html" class="active">About</a>
             <a href="services.html">Services</a>
             <a href="work.html">Works</a>
             <a href="contact.html">Contact</a>
-            <a href="contact.html" class="cta-btn">Get Started</a>
+            <a href="contact.html" class="cta-btn">Initiate Project</a>
         </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="about-hero">
-        <div class="about-hero-content">
-            <h1>Excellence Since 2014</h1>
-            <p>We're more than just a digital agency. We're your partners in transformation, bringing your vision to life through innovative technology and creative solutions.</p>
-        </div>
-        <div class="about-hero-image">
-            <img src="images/aboutmm.png" alt="Animated Digital Excellence" class="animated-image">
-        </div>
-    </section>
-
-    <!-- Wavy SVG Divider -->
-    <div class="about-section-top-divider">
-        <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="60">
-            <path d="M0 30 Q 360 60 720 30 T 1440 30 V60 H0Z" fill="#eaf2fb" opacity="0.85"/>
-        </svg>
-    </div>
-
-    <!-- Main About Section -->
-    <section class="about-section">
-        <div class="about-content">
-            <h2>Our Story</h2>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-year">2014</div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">The Beginning</h3>
-                        <p class="timeline-text">Founded as a small web development studio with a vision to help businesses thrive in the digital age. Starting with just a team of three passionate developers, we began our journey to revolutionize digital solutions.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2016</div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Expanding Services</h3>
-                        <p class="timeline-text">Expanded our services to include digital marketing and brand strategy, serving over 1,000 clients. Our team grew to 20+ specialists, and we opened our first international office.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2019</div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Global Reach</h3>
-                        <p class="timeline-text">Established international presence with clients from over 20 countries. Launched our innovative cloud solutions division and achieved ISO certification for quality management.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-year">2024</div>
-                    <div class="timeline-content">
-                        <h3 class="timeline-title">Industry Leader</h3>
-                        <p class="timeline-text">Now a full-service digital agency with over 10,000 successful projects. Our team of 50+ experts continues to push boundaries in web development, AI integration, and digital transformation.</p>
+        <div class="about-hero-inner">
+            <div class="about-hero-copy">
+                <div class="about-hero-eyebrow">Beyond Development</div>
+                <h1>We Are Product Architects.</h1>
+                <p>Most agencies ask what you want to build. We figure out what the market demands. DEVORA exists to solve the paralyzing "what's next?" problem that keeps ambitious visions stalled in the conceptual phase.</p>
+            </div>
+            <div class="about-hero-visual">
+                <div class="about-hero-img-wrap">
+                    <img src="images/aboutmm.png" alt="About DEVORA">
+                    <div class="about-hero-badge">
+                        2024
+                        <span>Est. Year</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Values Section -->
+    <!-- Stats Strip -->
+    <div class="stats-strip">
+        <div class="stats-strip-inner">
+            <div class="stat-block">
+                <strong>50+</strong>
+                <p>Projects Delivered</p>
+            </div>
+            <div class="stat-block">
+                <strong>40+</strong>
+                <p>Happy Clients</p>
+            </div>
+            <div class="stat-block">
+                <strong>4</strong>
+                <p>Core Capabilities</p>
+            </div>
+            <div class="stat-block">
+                <strong>100%</strong>
+                <p>Client Satisfaction</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Story -->
+    <section class="story-section">
+        <div class="story-inner">
+            <div class="story-copy">
+                <div class="section-eyebrow">The Framework</div>
+                <h2>Systematizing from Zero to Launch.</h2>
+                <p>We don't guess. We execute. Our five-step framework is designed to bridge the gap between abstract ambition and highly scalable reality.</p>
+                <p>We take pride in moving fast. It's not just about writing code; it's about validating assumptions early and deploying rapidly to corner the market.</p>
+            </div>
+            <div class="story-timeline">
+                <div class="tl-item">
+                    <div class="tl-dot">01</div>
+                    <div class="tl-body">
+                        <h4>Ideate</h4>
+                        <p>We define the whitespace and architect a highly unique solution.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">02</div>
+                    <div class="tl-body">
+                        <h4>Validate</h4>
+                        <p>We stress-test core assumptions to guarantee true market demand.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">03</div>
+                    <div class="tl-body">
+                        <h4>Design</h4>
+                        <p>We craft visually stunning, frictionless, and intuitive interfaces.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">04</div>
+                    <div class="tl-body">
+                        <h4>Build</h4>
+                        <p>We engineer the product utilizing robust, scalable architecture.</p>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot">05</div>
+                    <div class="tl-body">
+                        <h4>Launch</h4>
+                        <p>We deploy your solution with a high-impact market introduction.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values -->
     <section class="values-section">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 3rem; margin-bottom: 1rem;">Our Core Values</h2>
-            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 3rem;">The principles that guide everything we do</p>
-            
+        <div class="values-inner">
+            <div class="values-header">
+                <div class="section-eyebrow">What Drives Us</div>
+                <h2>Our core values</h2>
+            </div>
             <div class="values-grid">
                 <div class="value-card">
-                    <i class="fas fa-lightbulb"></i>
-                    <h3>Innovation</h3>
-                    <p>We constantly push boundaries and embrace new technologies to deliver cutting-edge solutions.</p>
+                    <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Purposeful Design</h3>
+                    <p>Every visual decision serves a purpose. We design with intent, not decoration.</p>
                 </div>
                 <div class="value-card">
-                    <i class="fas fa-users"></i>
-                    <h3>Collaboration</h3>
-                    <p>We believe in the power of teamwork and partnership with our clients to achieve exceptional results.</p>
+                    <div class="value-icon"><i class="fas fa-film"></i></div>
+                    <h3>Cinematic Quality</h3>
+                    <p>We bring a cinematic sensibility to digital — smooth motion, refined hierarchy, premium feel.</p>
                 </div>
                 <div class="value-card">
-                    <i class="fas fa-star"></i>
-                    <h3>Excellence</h3>
-                    <p>We maintain the highest standards in everything we do, from code quality to client communication.</p>
+                    <div class="value-icon"><i class="fas fa-code"></i></div>
+                    <h3>Clean Engineering</h3>
+                    <p>Fast, accessible, and maintainable code that performs beautifully on every device.</p>
                 </div>
                 <div class="value-card">
-                    <i class="fas fa-heart"></i>
-                    <h3>Passion</h3>
-                    <p>We love what we do and bring enthusiasm to every project we undertake.</p>
+                    <div class="value-icon"><i class="fas fa-users"></i></div>
+                    <h3>True Partnership</h3>
+                    <p>We work alongside our clients, not just for them. Your success is our success.</p>
                 </div>
                 <div class="value-card">
-                    <i class="fas fa-shield-alt"></i>
-                    <h3>Integrity</h3>
-                    <p>We operate with complete transparency and always put our clients' interests first.</p>
+                    <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Integrity First</h3>
+                    <p>Transparent communication, honest timelines, and work we're proud to put our name on.</p>
                 </div>
                 <div class="value-card">
-                    <i class="fas fa-rocket"></i>
-                    <h3>Growth</h3>
-                    <p>We're committed to continuous learning and helping our clients grow their businesses.</p>
+                    <div class="value-icon"><i class="fas fa-rocket"></i></div>
+                    <h3>Continuous Growth</h3>
+                    <p>We stay ahead of the curve so our clients always get the best of what's possible.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
+    <!-- Team -->
     <section class="team-section">
-        <div class="container">
-            <h2 style="text-align: center; font-size: 3rem; margin-bottom: 1rem;">Meet Our Team</h2>
-            <p style="text-align: center; font-size: 1.2rem; color: #666; margin-bottom: 3rem;">The talented people behind our success</p>
-            
+        <div class="team-inner">
+            <div class="team-header">
+                <div class="section-eyebrow">The People</div>
+                <h2>Meet our team</h2>
+            </div>
             <div class="team-grid">
-                <div class="team-member">
-                    <img src="images/team 1.webp" alt="Team Member">
-                    <h3>John Smith</h3>
-                    <p>CEO & Founder</p>
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img src="images/team 1.webp" alt="John Smith">
+                        <div class="team-hover-overlay">
+                            <p class="team-hover-info">Passionate about building scalable businesses and leading creative teams to success.</p>
+                            <div class="team-socials">
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="mailto:info@devora.in" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-card-body">
+                        <h3>John Smith</h3>
+                        <p>CEO & Founder</p>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <img src="images/prasad.png" alt="Team Member">
-                    <h3>Sarah Johnson</h3>
-                    <p>Creative Director</p>
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img src="images/prasad.png" alt="Prasad">
+                        <div class="team-hover-overlay">
+                            <p class="team-hover-info">Crafting visual identities and leading the artistic direction for digital experiences.</p>
+                            <div class="team-socials">
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="mailto:info@devora.in" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-card-body">
+                        <h3>Prasad</h3>
+                        <p>Creative Director</p>
+                    </div>
                 </div>
-                <div class="team-member">
-                    <img src="images/swastik.png" alt="Team Member">
-                    <h3>Michael Chen</h3>
-                    <p>Lead Developer</p>
-                </div>
-                <div class="team-member">
-                    <img src="images/robert.png" alt="Team Member">
-                    <h3>Emma Wilson</h3>
-                    <p>UX Designer</p>
+                <div class="team-card">
+                    <div class="team-card-img">
+                        <img src="images/swastik.png" alt="Swastik">
+                        <div class="team-hover-overlay">
+                            <p class="team-hover-info">Architecting robust full-stack solutions and ensuring premium performance.</p>
+                            <div class="team-socials">
+                                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                                <a href="mailto:info@devora.in" aria-label="Email"><i class="fas fa-envelope"></i></a>
+                                <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="team-card-body">
+                        <h3>Swastik</h3>
+                        <p>Lead Developer</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Team Member Modal -->
-    <div class="team-modal" id="teamModal">
-        <div class="team-modal-content">
-            <div class="team-modal-close"><i class="fas fa-times"></i></div>
-            <div class="team-modal-header">
-                <img class="team-modal-image" src="images/team 1.webp" alt="Team Member">
-                <div class="team-modal-info">
-                    <h2></h2>
-                    <p></p>
-                </div>
-            </div>
-            <div class="team-modal-bio"></div>
-            <div class="team-modal-details">
-                <div class="team-detail-item">
-                    <span class="team-detail-label">Experience</span>
-                    <span class="team-detail-value"></span>
-                </div>
-                <div class="team-detail-item">
-                    <span class="team-detail-label">Expertise</span>
-                    <span class="team-detail-value"></span>
-                </div>
-                <div class="team-detail-item">
-                    <span class="team-detail-label">Education</span>
-                    <span class="team-detail-value"></span>
-                </div>
-                <div class="team-detail-item">
-                    <span class="team-detail-label">Languages</span>
-                    <span class="team-detail-value"></span>
-                </div>
-            </div>
-            <div class="team-social-links">
-                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
-    <footer class="footer" style="background:#111; color:#fff; padding: 0; text-align:center; position:relative; min-height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-        <div class="footer-main" style="width:100vw;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:55vh;">
+    <footer class="footer">
+        <div class="footer-main">
             <div style="font-size:1.5rem;font-weight:700;letter-spacing:0.01em;margin-bottom:1.2rem;">
                 <span style="font-size:2rem;vertical-align:middle;">🖐️</span> WHAT'S CRACKIN'?
             </div>
-            <div style="font-size:4.5rem;font-weight:900;letter-spacing:-0.03em;margin-bottom:1.2rem;line-height:1.05;">ASK TO GET!</div>
-            <div style="font-size:2.1rem;font-weight:500;margin-bottom:2.5rem;">
-                <a href="mailto:info@codeseva.com" style="color:#fff;text-decoration:underline;">info@codeseva.com</a>
+            <div style="font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;letter-spacing:-0.03em;margin-bottom:1.2rem;line-height:1.05;">ASK TO GET!</div>
+            <div style="font-size:clamp(1.2rem,3vw,2.1rem);font-weight:500;margin-bottom:2.5rem;">
+                <a href="mailto:info@devora.in" style="color:#fff;text-decoration:underline;">info@devora.in</a>
             </div>
-            <div style="display:flex;justify-content:center;gap:2.5rem;font-size:1.1rem;font-weight:700;margin-bottom:0;">
-                <a href="index.html" style="color:#fff;text-decoration:none;">ABOUT</a>
-                <a href="index.html#services" style="color:#fff;text-decoration:none;">SERVICES</a>
+            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:2rem;font-size:1.1rem;font-weight:700;">
+                <a href="index.html" style="color:#fff;text-decoration:none;">HOME</a>
+                <a href="services.html" style="color:#fff;text-decoration:none;">SERVICES</a>
                 <a href="work.html" style="color:#fff;text-decoration:none;">WORK</a>
-                <a href="index.html#contact" style="color:#fff;text-decoration:none;">CONTACT US</a>
+                <a href="contact.html" style="color:#fff;text-decoration:none;">CONTACT</a>
             </div>
         </div>
-        <div class="footer-bottom" style="width:100vw;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3vw 1.2rem 3vw;position:relative;">
-            <div style="font-size:1rem;font-weight:600;letter-spacing:0.01em;opacity:0.8;">© 2024-25 CODESEVA</div>
+        <div class="footer-bottom">
+            <div style="font-size:1rem;font-weight:600;opacity:0.8;">© 2024-25 DEVORA</div>
             <div style="display:flex;align-items:center;gap:1.5rem;">
-                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-twitter"></i></a>
                 <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
-                <a href="#top" style="color:#111;background:#fff;border-radius:50%;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-arrow-up"></i></a>
+                <a href="mailto:info@devora.in" style="color:#fff;font-size:1.5rem;"><i class="fas fa-envelope"></i></a>
+                <a href="#" style="color:#fff;font-size:1.5rem;"><i class="fab fa-github"></i></a>
+                <a href="#" style="color:#111;background:#fff;border-radius:50%;width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;"><i class="fas fa-arrow-up"></i></a>
             </div>
         </div>
     </footer>
 
-    <script src="js/main.js"></script>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS animations
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: false
-        });
-
-        // Timeline scroll animation
-        function isElementInViewport(el) {
-            const rect = el.getBoundingClientRect();
-            return (
-                rect.top >= 0 &&
-                rect.left >= 0 &&
-                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-            );
-        }
-
-        function animateTimeline() {
-            const timelineItems = document.querySelectorAll('.timeline-item');
-            
-            timelineItems.forEach(item => {
-                if (isElementInViewport(item)) {
-                    item.classList.add('animate');
+        // Mobile nav
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        if (hamburger && navLinks) {
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('open');
+                navLinks.classList.toggle('open');
+            });
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                    hamburger.classList.remove('open');
+                    navLinks.classList.remove('open');
                 }
             });
         }
-
-        // Initial check for visible timeline items
-        animateTimeline();
-
-        // Listen for scroll events
-        window.addEventListener('scroll', animateTimeline);
-
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                const href = this.getAttribute('href');
-                if (href.length > 1 && document.querySelector(href)) {
-                    e.preventDefault();
-                    document.querySelector(href).scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
-
-        // Team Member Modal functionality
-        const teamMembers = document.querySelectorAll('.team-member');
-        const teamModal = document.getElementById('teamModal');
-        const teamModalClose = teamModal.querySelector('.team-modal-close');
-
-        const teamData = {
-            'member1': {
-                name: 'John Smith',
-                position: 'CEO & Founder',
-                image: 'images/team 1.webp',
-                bio: 'John is a visionary leader with over 15 years of experience in the tech industry. He founded CODESEVA with the goal of helping businesses transform their digital presence and achieve sustainable growth.',
-                experience: '15+ years',
-                expertise: 'Business Strategy, Technology Innovation',
-                education: 'MBA, Stanford University',
-                languages: 'English, Spanish',
-                linkedin: '#',
-                twitter: '#',
-                github: '#'
-            },
-            'member2': {
-                name: 'Sarah Johnson',
-                position: 'Creative Director',
-                image: 'images/prasad.png',
-                bio: 'Sarah brings over a decade of experience in design and branding. Her creative vision has helped shape the visual identity of numerous successful brands.',
-                experience: '12+ years',
-                expertise: 'UI/UX Design, Brand Strategy',
-                education: 'BFA in Design, RISD',
-                languages: 'English, French',
-                linkedin: '#',
-                twitter: '#',
-                github: '#'
-            },
-            'member3': {
-                name: 'Michael Chen',
-                position: 'Lead Developer',
-                image: 'images/swastik.png',
-                bio: 'Michael is a full-stack developer with expertise in modern web technologies. He leads our development team in creating robust and scalable solutions.',
-                experience: '8+ years',
-                expertise: 'Full-stack Development, Cloud Architecture',
-                education: 'MS in Computer Science, MIT',
-                languages: 'English, Mandarin',
-                linkedin: '#',
-                twitter: '#',
-                github: '#'
-            },
-            'member4': {
-                name: 'Emma Wilson',
-                position: 'UX Designer',
-                image: 'images/robert.png',
-                bio: 'Emma specializes in creating intuitive and user-centered digital experiences. Her work focuses on making complex systems simple and enjoyable to use.',
-                experience: '6+ years',
-                expertise: 'UX Research, Interaction Design',
-                education: 'BS in HCI, Carnegie Mellon',
-                languages: 'English, German',
-                linkedin: '#',
-                twitter: '#',
-                github: '#'
-            }
-        };
-
-        teamMembers.forEach((member, index) => {
-            member.addEventListener('click', () => {
-                const memberId = `member${index + 1}`;
-                const memberData = teamData[memberId];
-                
-                if (memberData) {
-                    teamModal.querySelector('.team-modal-image').src = memberData.image;
-                    teamModal.querySelector('.team-modal-info h2').textContent = memberData.name;
-                    teamModal.querySelector('.team-modal-info p').textContent = memberData.position;
-                    teamModal.querySelector('.team-modal-bio').textContent = memberData.bio;
-                    teamModal.querySelectorAll('.team-detail-value')[0].textContent = memberData.experience;
-                    teamModal.querySelectorAll('.team-detail-value')[1].textContent = memberData.expertise;
-                    teamModal.querySelectorAll('.team-detail-value')[2].textContent = memberData.education;
-                    teamModal.querySelectorAll('.team-detail-value')[3].textContent = memberData.languages;
-                    
-                    const socialLinks = teamModal.querySelectorAll('.team-social-links a');
-                    socialLinks[0].href = memberData.linkedin;
-                    socialLinks[1].href = memberData.twitter;
-                    socialLinks[2].href = memberData.github;
-                    
-                    teamModal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            });
-        });
-
-        teamModalClose.addEventListener('click', () => {
-            teamModal.classList.remove('active');
-            document.body.style.overflow = '';
-        });
-
-        teamModal.addEventListener('click', (e) => {
-            if (e.target === teamModal) {
-                teamModal.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        });
     </script>
+    <script src="js/main.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/interactions.js"></script>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
 </body>
-</html> 
+</html>
